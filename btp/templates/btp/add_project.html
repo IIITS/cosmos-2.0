@@ -1,0 +1,118 @@
+
+{% extends 'base.html' %}{% load staticfiles %}
+{% block main %}
+<style>
+.septem-header{border-bottom:1px inset #9e9e9e;}
+h5{color:#673ab7;}
+body{background-color: white;}
+
+.form-wrapper{
+    border-top: 5px solid #607d8b;
+    padding: 45px;
+    background: aliceblue;
+    padding-bottom: 15%;
+}
+.form-wrapper p{}
+.card-single {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card-single:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.button-container{
+  margin-top:15px;
+  margin-bottom: 15px;
+}
+</style>
+<script src="{% static 'btp/js/material.min.js' %}"></script>
+<div class="col-lg-9" style="padding: 25px 10vw;">
+<h3>Submit a new project.</h3>
+<div id="fwrap" class="form-wrapper card-single">
+<form id="add-project" >
+  <h5>Project title</h5>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="title"/>
+    <label class="mdl-textfield__label" for="username">Enter project title</label>
+  </div> 
+  <h5>Project description</h5>
+  <div class="mdl-textfield mdl-js-textfield">
+    <textarea class="mdl-textfield__input" type="text" rows= "6" id="description" ></textarea>
+    <label class="mdl-textfield__label" for="desc">Brief description of the project.</label>
+  </div>
+  <h5>Type of project: BTP or Honors?</h5>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <label class="mdl-radio mdl-js-radio" for="option1">
+    <input type="radio" id="btp" name="typeOfProject" class="mdl-radio__button" value="btp" checked>
+    <span class="mdl-radio__label">BTP</span>
+    </label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option2">
+    <input type="radio" id="honors" name="typeOfProject" value="honors" class="mdl-radio__button" >
+    <span class="mdl-radio__label">Honors</span>
+    </label>
+    
+  </div>
+
+  <h5>Keywords for the project.</h5>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="keywords"/>
+    <label class="mdl-textfield__label" for="username">Enter keywords</label>
+  </div> 
+  <h5>Summer Internship required?</h5>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <label class="mdl-radio mdl-js-radio" for="yes">
+    <input type="radio" id="yes" value="yes" name="summer" class="mdl-radio__button" checked>
+    <span class="mdl-radio__label">Yes</span>
+    </label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="no">
+    <input type="radio" id="no" value="no" name="summer" class="mdl-radio__button" >
+    <span class="mdl-radio__label">No</span>
+    </label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="nyd">
+    <input type="radio" id="nyd" value="nyd" name="summer" class="mdl-radio__button" >
+    <span class="mdl-radio__label">Not yet decided</span>
+    </label>
+    
+  </div>	
+  
+ </form>
+ <div class="button-container">       
+    <button onclick="submitIt()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="background:#607d8b; color:white; float:right;">SUBMIT</button/>
+  </div>
+  <div id="enter-project">
+  <a href="/add-project/" style="color:green;">
+    <h4>
+      <i class="fa fa-plus-circle" aria-hidden="true" ></i> Add another project
+    </h4>
+  </a>
+  <a href="/edit-project/" style="color:#3F518C;">
+    <h4><i class="fa fa-pencil-square" aria-hidden="true" ></i>Manage existing projects
+    </h4>
+  </a>
+</div>
+ </div>
+ </div>
+<script type="text/javascript">
+  $(document).ready(function(){ $('#enter-project').hide();
+  window.submitIt =  function(){
+    var title = $('#title').val();
+    var description =$('#description').val(); 
+    var typeOfProject =$('input[name=typeOfProject]:checked').val(); 
+    var keywords =$('#keywords').val();
+    var summer =$('input[name=summer]:checked').val();
+    $.post('/submit-project/', {'title':title, 
+      'description':description,
+      'typeOfProject':typeOfProject,
+      'keywords':keywords,
+      'summer':summer
+    }, function(data){
+      $('#add-project').hide();$('.button-container').hide();
+      var msg =  document.createElement('p'); var msg_t = document.createTextNode('Project Added Successfully');  msg.appendChild(msg_t); document.getElementById('fwrap').appendChild(msg);
+      });$('#enter-project').show();
+  }
+});
+</script>
+{% endblock %}

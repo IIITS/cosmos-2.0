@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block main %}
+<style>
+.septem-header{border-bottom:1px inset #9e9e9e;}
+h5{color:#673ab7;}
+body{background-color: white;}
+
+.form-wrapper{
+    border-top: 5px solid #607d8b;
+    padding: 45px;
+    background: aliceblue;
+    padding-bottom: 15%;
+}
+.form-wrapper p{}
+.card-single {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding:20px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card-single:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.button-container{
+  margin-top:15px;
+  margin-bottom: 15px;
+}
+
+</style>
+<script src="{% static 'btp/js/material.min.js' %}"></script>
+<div class="col-lg-9" style="margin-top:25px; padding: 25px 10vw; min-height:80vh;">
+  <div id="enter-project">
+  <a href="/add-project/" style="color:green;">
+    <h4>
+      <i class="fa fa-plus-circle" aria-hidden="true" ></i> Add a project
+    </h4>
+  </a>
+  </div>
+	<div id="select-project">
+		<h5>Select the project to edit.</h5>
+		{% for x in projects %}
+			<div class="card-single" style="margin-bottom:20px; ">
+        <span style="font-weight:bold;">{{ x.title }}</span><a href="/btp/edit-project/{{x.id}}/"><button onclick="edit({{x.id}})" style="background:#607d8b; color:white; float:right; " class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="select({{x.id}})">Edit</button></a>
+      </div>
+      {% empty %}
+      <div class="card-single" style="margin-bottom:20px; padding-bottom:20px;">
+        You have'nt entered any projects yet.
+		{% endfor %}
+	</div>
+	</div>
+<script type="text/javascript">
+</script>
+{% endblock %}
