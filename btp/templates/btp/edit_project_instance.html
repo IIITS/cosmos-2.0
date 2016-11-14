@@ -27,10 +27,12 @@ body{background-color: white;}
 }
 </style>
 <script src="{% static 'btp/js/material.min.js' %}"></script>
-<div class="col-lg-9" style="padding: 25px 10vw;">
+<div class="col-lg-9 col-md-9" style="padding: 25px 10vw;">
    <div id="editor-console">
       <div id="fwrap" class="form-wrapper card-single">
+      	<div id="add-students-message">
       	 <h5>Students registered for this project ? click <a href="#" id="students-add-event-listener">here</a> to add them.</h5>
+      	 </div>
       	 <div class="student-add-form-wrapper">
       	 </div>
          <form id="edit-project" >
@@ -98,12 +100,18 @@ body{background-color: white;}
 <script type="text/javascript">
   $(document).ready(function(){ $('#enter-project').hide();
   	$('#student-add-form-wrapper').hide();
-  	window.addStudentInstance = funtion(){
+  	window.addStudentInstance = function(){
   		var students = [];
-  		console.log($('.added-student-instance').val()); 
-  	
+  		var stud1 = createElement('input');
+  		stud1.setAttribute('data-si','add');
+  		$.get('/btp/get-current-students/', function(data){
+  			var json = $.parseJSON(data); 
+  			window.sessionStorage.setItem('students',json);
+  		});
+  		var select_students = window.
   	}
   $('#students-add-event-listener').on('click', function(){
+  	$('#add-students-message').hide();
   	$('#student-add-form-wrapper').show();addStudentInstance();
   });	
   window.submitIt =  function(){
@@ -122,7 +130,7 @@ body{background-color: white;}
       var msg =  document.createElement('p'); var msg_t = document.createTextNode('Project Updated Successfully');  msg.appendChild(msg_t); document.getElementById('fwrap').appendChild(msg);
       });$('#enter-project').show();
   }
-  window.addStudents = funtion(){
+  window.addStudents = function(){
   	var pid = $('#pid').val();
   	$.post('/btp/add-students/'+pid+'/', {}, function(data){
   		var msg1 =  document.createElement('p'); var msg1_t = document.createTextNode('Students added Successfully');  msg1.appendChild(msg1_t); document.getElementById('fwrap').appendChild(msg);
