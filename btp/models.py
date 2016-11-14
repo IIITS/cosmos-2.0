@@ -69,6 +69,11 @@ class HonorsProject(models.Model):
 	
 	def supervisors(self):
 		return self.supervisor.split(',')	
+class Student(models.Model):
+	user = models.OneToOneField(User)
+	year = models.CharField(max_length=4, default='2016')
+	def __str__(self):
+		return self.user.get_full_name()
 	
 class BTPStudent(models.Model):
 	user = models.OneToOneField(User)

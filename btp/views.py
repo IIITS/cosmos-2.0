@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import resolve_url,render
 from django.template.response import TemplateResponse
 from django.core.mail import send_mail
+import json
 
 class IndexView(TemplateView):
 	template_name = 'index/index.html'
@@ -228,3 +229,11 @@ def addStudentsToProject(request):
 	pro.students = request.POST.get('students')
 	pro.save()
 	return HttpResponseRedirect('/')	
+
+def getCurrentStudents(request):
+	st = Student.objects.all()
+	st_list = list()
+	for s in st:
+		st_list.append(
+			{'user':s.user.username, 'name':s.user.get_full_name()})
+	return JsonResponse(json.dumps({'students':st_list}), safe=False)	

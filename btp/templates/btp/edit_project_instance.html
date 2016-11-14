@@ -33,7 +33,7 @@ body{background-color: white;}
       	<div id="add-students-message">
       	 <h5>Students registered for this project ? click <a href="#" id="students-add-event-listener">here</a> to add them.</h5>
       	 </div>
-      	 <div class="student-add-form-wrapper">
+      	 <div id="student-add-form-wrapper">
       	 </div>
          <form id="edit-project" >
          	<input type="hidden" id="pid" value="{{p.pid}}"/>
@@ -101,14 +101,29 @@ body{background-color: white;}
   $(document).ready(function(){ $('#enter-project').hide();
   	$('#student-add-form-wrapper').hide();
   	window.addStudentInstance = function(){
+  		$('#student-add-form-wrapper').show();
   		var students = [];
-  		var stud1 = createElement('input');
-  		stud1.setAttribute('data-si','add');
   		$.get('/btp/get-current-students/', function(data){
   			var json = $.parseJSON(data); 
-  			window.sessionStorage.setItem('students',json);
-  		});
-  		var select_students = window.
+  			var select_students = json['students'];
+  		var sel = document.createElement('select');sel.setAttribute('data-si','add');
+
+  		for (var j = 0 ; j < select_students.length ; j++){
+  			var option = document.createElement('option');
+  			option.value = select_students[j]['user'];
+  			option.innerHTML = select_students[j]['name'];
+  			sel.appendChild(option);
+  		}
+  		document.getElementById('student-add-form-wrapper').appendChild(sel);
+  		var this_button = document.createElement('button');
+  		this_button.innerHTML = "Add this Student";
+  		this_button.setAttribute('onclick', 'submitStudent()');
+  		document.getElementById('student-add-form-wrapper').appendChild(this_button);
+  		var plus_button = document.createElement('button');
+  		plus_button.innerHTML = "+more students";
+  		plus_button.setAttribute('onclick', 'addStudentInstance()');
+  		document.getElementById('student-add-form-wrapper').appendChild(plus_button);
+  	});
   	}
   $('#students-add-event-listener').on('click', function(){
   	$('#add-students-message').hide();
@@ -133,7 +148,7 @@ body{background-color: white;}
   window.addStudents = function(){
   	var pid = $('#pid').val();
   	$.post('/btp/add-students/'+pid+'/', {}, function(data){
-  		var msg1 =  document.createElement('p'); var msg1_t = document.createTextNode('Students added Successfully');  msg1.appendChild(msg1_t); document.getElementById('fwrap').appendChild(msg);
+  		var msg1 =  document.createElement('p'); var msg1_t = document.createTextNode('Students added Successfully');  msg1.appendChild(msg1_t); document.getElementById('#student-add-form-wrapper').appendChild(msg);
   	});
   }
 });
