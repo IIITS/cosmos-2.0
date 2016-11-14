@@ -1,0 +1,71 @@
+{% load staticfiles %}
+ <script src="{% static 'index/js/material.min.js' %}"></script>
+
+<div  class="navbar-fixed-top navbar septem-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="septem-title mdl-layout-title">
+            <img class="septem-logo-image" src="{% static 'index/images/iiits-logo.png' %}" alt="IIIT-S"><span class="cosmos-logo">cosmos</span>
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="septem-header-spacer mdl-layout-spacer"></div>
+         
+          <!-- Navigation -->
+          <div class="septem-navigation-container">
+            <nav class="septem-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/btp/">BTP &amp; HONORS</a>
+              
+          </nav>
+          </div>
+          <span class="septem-mobile-title mdl-layout-title">
+            <img class="septem-logo-image" src="{% static 'index/images/iiits-logo.png' %}"><span class="cosmos-logo">cosmos</span>
+          </span>
+          <button onclick="showDrop()" class="septem-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul id="logged-in" class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+            <li class="mdl-menu__item">{{ user.get_full_name }}</li>
+            <li class="mdl-menu__item"><a href="/secure/changepassword/">change password</a></li>
+            <li class="mdl-menu__item"><a href="/accounts/signout/">sign out</a></li>
+          </ul>
+        </div>
+      </div>
+<div  class="septem-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="septem-title mdl-layout-title">
+            <img class="septem-logo-image" src="{% static 'index/images/iiits-logo.png' %}" alt="IIIT-S"><span class="cosmos-logo">cosmos</span>
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="septem-header-spacer mdl-layout-spacer"></div>
+         
+          <!-- Navigation -->
+          <div class="septem-navigation-container">
+            <nav class="septem-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/btp/">BTP &amp; HONORS</a>
+              
+          </nav>
+          </div>
+          <span class="septem-mobile-title mdl-layout-title">
+            <img class="septem-logo-image" src="{% static 'index/images/iiits-logo.png' %}"><span class="cosmos-logo">cosmos</span>
+          </span>
+          <button onclick="showDrop()" class="septem-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul id="logged-in" class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+            <li class="mdl-menu__item">{{ user.get_full_name }}</li>
+            <li class="mdl-menu__item"><a href="/secure/changepassword/">change password</a></li>
+            <li class="mdl-menu__item"><a href="/accounts/signout/">sign out</a></li>
+          </ul>
+        </div>
+      </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#logged-in').hide();
+
+  window.showDrop = function(){
+    $('#logged-in').toggle();
+  }
+  $('body').click(function(){
+    $('#logged-in').hide();
+  });
+});
+</script>
