@@ -201,7 +201,8 @@ def submit_report( request):
 		return HttpResponseRedirect('/btp')
 @csrf_exempt
 def SubmitProject(request):
-	p = Project(title=request.POST.get('title'),
+	code = Faculty.objects.get(user=self.request.user).get_next_code()
+	p = Project(code=code,title=request.POST.get('title'),
 			description=request.POST.get('description'),
 			summer=request.POST.get('summer'),
 			keywords = request.POST.get('keywords'),

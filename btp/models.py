@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from btp import choices
+from btp import choices, values
 import datetime
 
 def content_file_name(instance, filename):
@@ -26,6 +26,7 @@ class Batch(models.Model):
 	        verbose_name_plural = "Batches"
         
 class Project(models.Model):
+	code = models.TextField()
 	title =  models.TextField()
 	description = models.TextField()
 	keywords = models.TextField()
@@ -46,6 +47,9 @@ class Project(models.Model):
 		self.students = self.students + ' ' + students
 		return self.students
 	
+class ProjectMedia(models.Model):
+	file_up = models.FileField(upload_to='/static/files/')	
+	project = models.ForeignKey(Project)
 
 class BTPProject(models.Model):
 	code = models.CharField(max_length=8)
@@ -99,6 +103,8 @@ class Faculty(models.Model):
 
 	user = models.OneToOneField(User)
 	area_of_interest = models.TextField(default='Not Provided')
+	next_code_int = models.CharField(default='001', max_length=15) 
+	code_verbose = models.CharField(default='EX', max_length=10)
 	def __str__(self):
 		return str(self.user.get_full_name())
 	
@@ -111,7 +117,11 @@ class Faculty(models.Model):
 			if (self.user.username in btpro.supervisor):
 				ProjectList.append(btpro)
 
+		self.next_code_int = values.get('beautify_digit')[str(len(ProjectList) + 1)]
 		return ProjectList
+
+	def get_next_code(self):
+		return self.code_verbose + self.next_code_int 
 	def students(self):
 		STUDENTS = {'btp':[],'honors':[]}
 		_st_btp = BTPStudent.objects.all()
