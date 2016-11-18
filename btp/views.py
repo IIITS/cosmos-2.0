@@ -240,34 +240,3 @@ def getCurrentStudents(request):
 	return JsonResponse(json.dumps({'students':st_list}), safe=False)	
 
 
-def migrator():
-	btp = BTPProject.objects.all()
-	honors = HonorsProject.objects.all()
-	for x in btp:
-		p = Project(code = x.code,
-			title = x.title,
-			description = "Not Provided",
-			keywords="No",
-			typeOfProject = "btp",
-			year = "2015",
-			students = getStudents(x),
-			supervisors = x.supervisor,
-			summer = "nyd",
-			is_taken = True
-			)
-		p.save()
-	for x in honors:
-		p = Project(code = x.code,
-			title = x.title,
-			description = "Not Provided",
-			keywords="No",
-			typeOfProject = "honors",
-			year = "2015",
-			students = getStudents(x),
-			supervisors = x.supervisor,
-			summer = "nyd",
-			is_taken = True
-			)
-		p.save()
-
-	return None

@@ -46,7 +46,12 @@ class Project(models.Model):
 	def add_students(self, students):
 		self.students = self.students + ' ' + students
 		return self.students
-	
+	def get_students(self):
+		students = []
+		for s in self.students.split():
+			students.append(Student.objects.get(user__username=s))
+		print students	
+		return students
 class ProjectMedia(models.Model):
 	file_up = models.FileField(upload_to='/static/files/')	
 	project = models.ForeignKey(Project)
@@ -114,18 +119,16 @@ class Faculty(models.Model):
 		return self.user.get_full_name()
 	def get_all_projects(self):
 		ProjectList = []
-		btpprojects = BTPProject.objects.all()
-		for btpro in btpprojects:
-			if (self.user.username in btpro.supervisor):
-				ProjectList.append(btpro)
-		btpprojects = BTPProject.objects.all()
-		for btpro in btpprojects:
-			if (self.user.username in btpro.supervisor):
-				ProjectList.append(btpro)		
-
+		pro = Project.objects.all()
+		for p in pro:
+			if (self.user.username in p.supervisors):
+				ProjectList.append(p)
 		self.next_code_int = values.get('beautify_digit')[str(len(ProjectList) + 1)]
 		return ProjectList
-
+	def get_btp_projects(self):
+		return Project.objects.filter(typeOfProject="btp",supervisors__icontains=self.user.username)
+	def get_honors_projects(self):	
+		return Project.objects.filter(typeOfProject="honors",supervisors__icontains=self.user.username)
 	def get_next_code(self):
 		return self.code_verbose + self.next_code_int 
 	def students(self):
