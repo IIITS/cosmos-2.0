@@ -25,7 +25,8 @@ urlpatterns = [
 	url(r'edit-project/(?P<id>[0-9]+)/$', login_required(views.EditProjectInstance.as_view())),
 	url(r'submit-project/$', login_required(views.SubmitProject)),
 	url(r'add-students/(?P<id>[0-9]+)/$', login_required(views.addStudentsToProject)),
-	url(r'btp/get-current-students/$', login_required(views.getCurrentStudents))
+	url(r'btp/get-current-students/$', login_required(views.getCurrentStudents)),
+	url(r'upload-project-file/(?P<id>[0-9]+)/$', login_required(views.uploadProjectFileFaculty))
 ]
 if settings.SERVE_MEDIA:
     urlpatterns += (

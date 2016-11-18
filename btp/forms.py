@@ -49,3 +49,5 @@ class ProjectUpdateForm(forms.ModelForm):
         model = Project
         fields = ('title','description')
 
+class FileUploadForm(forms.Form):
+    file_upload = forms.FileField(forms.ClearableFileInput(attrs={'class':'mdl-textfield__input'}))

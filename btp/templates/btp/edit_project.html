@@ -40,6 +40,32 @@ line-height: 32px;}
 vertical-align: middle;
 display: inline-block;
 }
+.mdl-button--file input{
+    cursor: pointer;
+    height: 100%;
+    right: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 300px;
+    z-index: 4;
+}
+
+
+.mdl-textfield__input {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+  }
+.mdl-button--file {
+    right: 0;
+  }
+input[type="file"]{
+  display: inline;
+}
+#fileUpload{
+  padding: 15px;
+border-radius: 5px;
+}
 </style>
 <script src="{% static 'btp/js/material.min.js' %}"></script>
 <div class="col-lg-9 col-md-9" style="margin-top:25px; padding: 25px 10vw; min-height:80vh;">
@@ -59,8 +85,25 @@ display: inline-block;
           <span class="mdl-chip__text">{{ x.title|capfirst }}</span>
           
         </span>
-        <a href="/btp/edit-project/{{x.id}}/"><button onclick="edit({{x.id}})" style="background:#607d8b; color:white; float:right; " class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="select({{x.id}})">Edit</button></a>
+        <button onclick="showBox({{x.id}})"  class="mdl-color--indigo mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" onclick="select({{x.id}})"><span class="mdl-color-text--white"><i class="fa fa-upload" aria-hidden="true"></i>upload files</span></button>
+        <a href="/btp/edit-project/{{x.id}}/"><button onclick="edit({{x.id}})" style="background:#607d8b; color:white; float:right; margin-right:5px;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="select({{x.id}})"><i class="fa fa-pencil" aria-hidden="true"></i>
+Edit</button></a>
       </div>
+      <div class="mdl-color--teal col-lg-12 col-md-12 col-sm-12 col-xs-12" id="fileUpload"> 
+        <form id="file-submit-form" method="post" action="/upload-project-file/{{x.id}}/" enctype="multipart/form-data" >
+    {% csrf_token %}
+          <div class="fileUpload" style="display:inline;">
+          
+          {{ fileform.file_upload }}
+        <button class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect disabled">
+          UPLOAD
+        </button>
+    </div>
+</form>
+      </div>
+      
+
+
       {% empty %}
       <div class="card-single" style="margin-bottom:20px; padding-bottom:20px;">
         You have'nt entered any projects yet.
@@ -68,5 +111,11 @@ display: inline-block;
 	</div>
 	</div>
 <script type="text/javascript">
+$('#fileUpload').hide();
+window.showBox =function(iden){
+    $('#fileUpload').show();
+    
+  }
+  
 </script>
 {% endblock %}

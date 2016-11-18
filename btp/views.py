@@ -33,7 +33,7 @@ class BTPIndexView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context=super(BTPIndexView,self).get_context_data(**kwargs)
 		
-		students = BTPStudent.objects.order_by('rollno')
+		students = Student.objects.order_by('user__username')
 		faculty = Faculty.objects.order_by('user__first_name')
 		batches = Batch.objects.order_by('graduate_year')
 		
@@ -92,7 +92,7 @@ class EditProject(TemplateView):
 	def get_context_data(self,**kwargs):	
 		context = super(EditProject,self).get_context_data(**kwargs)
 		projects = Project.objects.filter(supervisors__contains=str(self.request.user))
-		context = {'title':'Manage Project', 'projects':projects }
+		context = {'title':'Manage Project', 'projects':projects, 'fileform':FileUploadForm }
 		return context		
 
 class EditProjectInstance(TemplateView):
@@ -238,5 +238,14 @@ def getCurrentStudents(request):
 		st_list.append(
 			{'user':s.user.username, 'name':s.user.get_full_name()})
 	return JsonResponse(json.dumps({'students':st_list}), safe=False)	
+
+@csrf_exempt
+def uploadProjectFileFaculty(request, **kwargs):
+	print request.FILES
+	print "POST"
+	print request.POST
+	P = ProjectMedia(file_up=request.FILES['file_upload'], project = Project.objects.get(id=kwargs['id']))
+	P.save()
+	return HttpResponse('success')
 
 

@@ -57,7 +57,7 @@ class Project(models.Model):
 			print students
 		return students
 class ProjectMedia(models.Model):
-	file_up = models.FileField(upload_to='/static/files/')	
+	file_up = models.FileField(upload_to='static/files/')	
 	project = models.ForeignKey(Project)
 
 class Student(models.Model):
