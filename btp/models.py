@@ -48,9 +48,13 @@ class Project(models.Model):
 		return self.students
 	def get_students(self):
 		students = []
-		for s in self.students.split():
-			students.append(Student.objects.get(user__username=s))
-		print students	
+		st = self.students.split()
+		print st
+		for i in range(len(st)):
+			s = st[i]
+			stud = Student.objects.get(user__username=str(s))
+			students.append(stud)
+			print students
 		return students
 class ProjectMedia(models.Model):
 	file_up = models.FileField(upload_to='/static/files/')	

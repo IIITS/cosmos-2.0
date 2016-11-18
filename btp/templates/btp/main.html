@@ -42,6 +42,10 @@ line-height: 32px;}
 vertical-align: middle;
 display: inline-block;
 }
+.cosmos-small-chip{
+  height: 22px;
+font-variant: super;
+}
 </style>
 <div id="main--faculty" class="main--active">
 	{% for f in faculty %}
@@ -58,12 +62,14 @@ display: inline-block;
               	<div class="col-lg-12 col-md-12">
               		<span class="card-subtitle">B.Tech Projects</span><br>
               			{% for x in f.get_btp_projects %}
-              			 <span class="mdl-chip mdl-chip--contact">
+              			 <br><span class="mdl-chip mdl-chip--contact">
                        <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{x.code}}</span>
                        <span class="mdl-chip__text">{{ x.title|capfirst }}</span>
-                      </span><br>
+                      </span><br><b>STUDENTS: &nbsp;</b>
                       {% for s in x.get_students %}
-                        <p>s.user.get_full_name</p>
+                        <span class="mdl-chip cosmos-small-chip mdl-color--blue">
+                          <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
+                        </span>
                       {% empty %}
                         This project is not taken by any students yet.<br>
                       {% endfor %}
@@ -71,18 +77,24 @@ display: inline-block;
               			<span class="list-specifier">No B.Tech Projects specified.</span>
               			{% endfor %}
               	</div>
-
-
-              	<div class="col-lg-12 col-md-12">
-              		<span class="card-subtitle">Honors Students</span>
-              		<table class="table">
-              		{% for s in f.get_honors_projects %}
-              			<tr><td><b>{{s.code}}</b></td><td>{{s.btpproject}}</td></tr>
-              			{% empty %}
-              			<span class="list-specifier"> No students enrolled yet.</span>
-              		{% endfor %}
-              		</table>
-              	</div>
+                <div class="col-lg-12 col-md-12">
+                  <span class="card-subtitle">Honors Projects</span><br>
+                    {% for x in f.get_honors_projects %}
+                     <br><span class="mdl-chip mdl-chip--contact">
+                       <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{x.code}}</span>
+                       <span class="mdl-chip__text">{{ x.title|capfirst }}</span>
+                      </span><br><b>STUDENTS: &nbsp;</b>
+                      {% for s in x.get_students %}
+                        <span class="mdl-chip cosmos-small-chip mdl-color--blue">
+                          <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
+                        </span>
+                      {% empty %}
+                        This project is not taken by any students yet.<br>
+                      {% endfor %}
+                       {% empty %}
+                    <span class="list-specifier">No Honors Projects specified.</span>
+                    {% endfor %}<br>
+                </div>  
             </div>
             <div id="aoi--{{f.user.id}}" class="card-action-sub card-action card-action--inactive col-lg-12 col-md-12">
               	<center class="card-subtitle">Areas of Interest</center>
