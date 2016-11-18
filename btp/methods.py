@@ -190,3 +190,19 @@ def getMailingList(submission):
 	return ML
 def checkBeforeDeadline(btpsetweek):
 		return ( timezone.now() < btpsetweek.submitdeadline )	
+
+def getStudents(project):
+	try:
+		btps = BTPStudent.objects.filter(btpproject=project)
+	except ValueError:
+		btps = []	
+	try:
+		hs =  HonorsStudent.objects.filter(honorsproject=project)
+	except ValueError:
+		hs = []
+	students = ""
+	for x in btps:
+		students += str(x.user.username) +" "
+	for x in hs:
+		students += str(x.user.username) + " "
+	return students.strip()

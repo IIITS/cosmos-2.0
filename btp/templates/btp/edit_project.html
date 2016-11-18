@@ -28,7 +28,18 @@ body{background-color: white;}
   margin-top:15px;
   margin-bottom: 15px;
 }
-
+.mdl-chip__contact{
+height: 32px;
+width: 76px;
+border-radius: 36px;
+margin-right: 8px;
+font-size: 18px;
+line-height: 32px;}
+.mdl-chip__text{
+  font-size: 18px;
+vertical-align: middle;
+display: inline-block;
+}
 </style>
 <script src="{% static 'btp/js/material.min.js' %}"></script>
 <div class="col-lg-9 col-md-9" style="margin-top:25px; padding: 25px 10vw; min-height:80vh;">
@@ -43,7 +54,12 @@ body{background-color: white;}
 		<h5>Select the project to edit.</h5>
 		{% for x in projects %}
 			<div class="card-single" style="margin-bottom:20px; ">
-        <span style="font-weight:bold;">{{ x.title }}</span><a href="/btp/edit-project/{{x.id}}/"><button onclick="edit({{x.id}})" style="background:#607d8b; color:white; float:right; " class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="select({{x.id}})">Edit</button></a>
+        <span class="mdl-chip mdl-chip--contact">
+          <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{x.code}}</span>
+          <span class="mdl-chip__text">{{ x.title|capfirst }}</span>
+          
+        </span>
+        <a href="/btp/edit-project/{{x.id}}/"><button onclick="edit({{x.id}})" style="background:#607d8b; color:white; float:right; " class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="select({{x.id}})">Edit</button></a>
       </div>
       {% empty %}
       <div class="card-single" style="margin-bottom:20px; padding-bottom:20px;">

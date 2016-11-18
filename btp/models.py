@@ -37,7 +37,7 @@ class Project(models.Model):
 	is_taken = models.BooleanField(default=False)
 	students = models.TextField()
 	def __str__(self):
-		return str(self.title) + "  "+ str(self.supervisors)
+		return str(self.code)+" - "+str(self.title) + "  "+ str(self.supervisors)
 	def take_project(self, students):
 		self.is_taken = True
 		self.students = students
@@ -62,6 +62,8 @@ class BTPProject(models.Model):
 	
 	def supervisors(self):
 		return self.supervisor.split(',')	
+	
+
 class HonorsProject(models.Model):
 	code = models.CharField(max_length=8)
 	title = models.CharField(max_length=150)
@@ -116,6 +118,10 @@ class Faculty(models.Model):
 		for btpro in btpprojects:
 			if (self.user.username in btpro.supervisor):
 				ProjectList.append(btpro)
+		btpprojects = BTPProject.objects.all()
+		for btpro in btpprojects:
+			if (self.user.username in btpro.supervisor):
+				ProjectList.append(btpro)		
 
 		self.next_code_int = values.get('beautify_digit')[str(len(ProjectList) + 1)]
 		return ProjectList

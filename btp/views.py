@@ -201,7 +201,7 @@ def submit_report( request):
 		return HttpResponseRedirect('/btp')
 @csrf_exempt
 def SubmitProject(request):
-	code = Faculty.objects.get(user=self.request.user).get_next_code()
+	code = Faculty.objects.get(user=request.user).get_next_code()
 	p = Project(code=code,title=request.POST.get('title'),
 			description=request.POST.get('description'),
 			summer=request.POST.get('summer'),
@@ -238,3 +238,36 @@ def getCurrentStudents(request):
 		st_list.append(
 			{'user':s.user.username, 'name':s.user.get_full_name()})
 	return JsonResponse(json.dumps({'students':st_list}), safe=False)	
+
+
+def migrator():
+	btp = BTPProject.objects.all()
+	honors = HonorsProject.objects.all()
+	for x in btp:
+		p = Project(code = x.code,
+			title = x.title,
+			description = "Not Provided",
+			keywords="No",
+			typeOfProject = "btp",
+			year = "2015",
+			students = getStudents(x),
+			supervisors = x.supervisor,
+			summer = "nyd",
+			is_taken = True
+			)
+		p.save()
+	for x in honors:
+		p = Project(code = x.code,
+			title = x.title,
+			description = "Not Provided",
+			keywords="No",
+			typeOfProject = "honors",
+			year = "2015",
+			students = getStudents(x),
+			supervisors = x.supervisor,
+			summer = "nyd",
+			is_taken = True
+			)
+		p.save()
+
+	return None
