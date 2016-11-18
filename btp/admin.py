@@ -3,11 +3,7 @@ from btp.models import *
 
 admin.site.register(Application)
 admin.site.register(Batch)
-admin.site.register(BTPProject)
-admin.site.register(HonorsProject)
 admin.site.register(Student)
-admin.site.register(BTPStudent)
-admin.site.register(HonorsStudent)
 admin.site.register(Faculty)
 admin.site.register(Semester)
 admin.site.register(BTPWeek)

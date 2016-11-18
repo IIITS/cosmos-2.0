@@ -60,54 +60,12 @@ class ProjectMedia(models.Model):
 	file_up = models.FileField(upload_to='/static/files/')	
 	project = models.ForeignKey(Project)
 
-class BTPProject(models.Model):
-	code = models.CharField(max_length=8)
-	title = models.CharField(max_length=150)
-	keywords = models.TextField(default='NA')
-	supervisor = models.TextField()
-	year = models.CharField(max_length=4, default='2015')
-	def __str__(self):
-		return str(self.code)+" "+str(self.title)
-	
-	def supervisors(self):
-		return self.supervisor.split(',')	
-	
-
-class HonorsProject(models.Model):
-	code = models.CharField(max_length=8)
-	title = models.CharField(max_length=150)
-	keywords = models.TextField(default='NA')
-	supervisor = models.TextField()
-	
-	def __str__(self):
-		return str(self.code)+" "+str(self.title)
-	
-	def supervisors(self):
-		return self.supervisor.split(',')	
 class Student(models.Model):
 	user = models.OneToOneField(User)
 	year = models.CharField(max_length=4, default='2016')
 	def __str__(self):
 		return self.user.get_full_name()
 	
-class BTPStudent(models.Model):
-	user = models.OneToOneField(User)
-	btpproject = models.ForeignKey(BTPProject)
-	def __str__(self):
-		return str(self.user.get_full_name())
-	def fullname(self):
-		return self.user.get_full_name() 
-
-class HonorsStudent(models.Model):
-	user = models.OneToOneField(User)
-	branch = models.CharField(max_length=5) 
-	rollno = models.CharField(max_length=15)
-	honorsproject = models.ForeignKey(HonorsProject)
-	def __str__(self):
-		return str(self.rollno) +"   "+ str(self.user.get_full_name())
-	def fullname(self):
-		return self.user.get_full_name() 
-
 class Faculty(models.Model):
 	class Meta:
         	verbose_name_plural = "Faculties"
@@ -135,17 +93,7 @@ class Faculty(models.Model):
 		return Project.objects.filter(typeOfProject="honors",supervisors__icontains=self.user.username).order_by('code')
 	def get_next_code(self):
 		return self.code_verbose + self.next_code_int 
-	def students(self):
-		STUDENTS = {'btp':[],'honors':[]}
-		_st_btp = BTPStudent.objects.all()
- 		_st_honors = HonorsStudent.objects.all()
- 		for _st in _st_btp:
- 			if self.user.username in _st.btpproject.supervisors():
- 				STUDENTS['btp'].append(_st)
- 		for _st in _st_honors:
- 			if self.user.username in _st.honorsproject.supervisors():
- 				STUDENTS['honors'].append(_st)
- 		return STUDENTS	
+	
  	def aoi(self):
  		return self.area_of_interest.split(',')		
 class Semester(models.Model):
@@ -172,7 +120,7 @@ class BTPEvalPanel(models.Model):
 
 
 class BTPProjectGroup(models.Model):
-	project = models.ForeignKey(BTPProject)
+	project = models.ForeignKey(Project)
 	students = models.TextField()
 	faculty = models.TextField()
 	def __str__(self):
