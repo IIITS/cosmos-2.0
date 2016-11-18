@@ -130,9 +130,9 @@ class Faculty(models.Model):
 		self.next_code_int = values.get('beautify_digit')[str(len(ProjectList) + 1)]
 		return ProjectList
 	def get_btp_projects(self):
-		return Project.objects.filter(typeOfProject="btp",supervisors__icontains=self.user.username)
+		return Project.objects.filter(typeOfProject="btp",supervisors__icontains=self.user.username).order_by('code')
 	def get_honors_projects(self):	
-		return Project.objects.filter(typeOfProject="honors",supervisors__icontains=self.user.username)
+		return Project.objects.filter(typeOfProject="honors",supervisors__icontains=self.user.username).order_by('code')
 	def get_next_code(self):
 		return self.code_verbose + self.next_code_int 
 	def students(self):
