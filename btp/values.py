@@ -1,4 +1,20 @@
-beautify_digit = {
-	"1":"001","2":"002","3":"003","4":"004","5":"005","6":"006","7":"007","8":"008","9":"009",
-	"10":"010","11":"011","12":"012","13":"013","14":"014","15":"015","16":"016","17":"017","18":"018","19":"019"
-}
+beautify_digit = dict()
+beautify_digit["1"]="001"
+beautify_digit["2"]="002"
+beautify_digit["3"]="003"
+beautify_digit["4"]="004"
+beautify_digit["5"]="005"
+beautify_digit["6"]="006"
+beautify_digit["7"]="007"
+beautify_digit["8"]="008"
+beautify_digit["9"]="009"
+beautify_digit["10"]="010"
+beautify_digit["11"]="011"
+beautify_digit["12"]="012"
+beautify_digit["13"]="013"
+beautify_digit["14"]="014"
+beautify_digit["15"]="015"
+beautify_digit["16"]="016"
+beautify_digit["17"]="017"
+beautify_digit["18"]="018"
+beautify_digit["19"]="019"

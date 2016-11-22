@@ -85,7 +85,8 @@ class Faculty(models.Model):
 		for p in pro:
 			if (self.user.username in p.supervisors):
 				ProjectList.append(p)
-		self.next_code_int = values.get('beautify_digit')[str(len(ProjectList) + 1)]
+		self.next_code_int = values.__dict__.get('beautify_digit')[str(len(ProjectList) + 1)]
+
 		return ProjectList
 	def get_btp_projects(self):
 		return Project.objects.filter(typeOfProject="btp",supervisors__icontains=self.user.username).order_by('code')
