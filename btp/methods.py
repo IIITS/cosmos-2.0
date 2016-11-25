@@ -1,7 +1,11 @@
 from django.contrib.auth.models import User, Group
 from django.utils import timezone
 from django.db import IntegrityError
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
+from django.template import Context
 from btp.models import *
+
 import json
 WEEK_MAX = 4
 def is_in_past(time):
@@ -232,3 +236,19 @@ def createUG3():
 			print "Student created for %s ..." % (name)
 		except IntegrityError as err:
 			print "User already exist, %s" % str(j[k]["name"])
+
+def s():
+	subject = "Would you suggest any changes to the email template ?"
+	to = ["sahal.k13@iiits.in", "hvraman@iiits.in"]
+	from_email = '[do-not-reply] Cosmos support <no-reply@cosmos.iiits.in>'
+	ctx = {
+        'username': 'sahal.k13@iiits.in',
+        'title':'Welcome to cosmos family.',
+        'password':'L4nk3w9jqnk',
+        "name":"Sahal Sajjad"
+    }
+
+	message = get_template('email/signedup_welcome.html').render(Context(ctx))
+	msg = EmailMessage(subject, message, to=to, from_email=from_email)
+    	msg.content_subtype = 'html'
+    	msg.send()
