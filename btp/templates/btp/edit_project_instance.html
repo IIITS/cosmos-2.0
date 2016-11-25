@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block main %}
+<style type="text/css"/>
+.septem-header{border-bottom:1px inset #9e9e9e;}
+h5{color:#673ab7;}
+body{background-color: white;}
+
+.form-wrapper{
+    border-top: 5px solid #607d8b;
+    padding: 45px;
+    background: aliceblue;
+    padding-bottom: 15%;
+}
+.form-wrapper p{}
+.card-single {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card-single:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.button-container{
+  margin-top:15px;
+  margin-bottom: 15px;
+}
+</style>
+<script src="{% static 'btp/js/material.min.js' %}"></script>
+<div class="col-lg-9 col-md-9" style="padding: 25px 10vw;">
+   <div id="editor-console">
+      <div id="fwrap" class="form-wrapper card-single">
+      	<div id="add-students-message">
+      	 <h5>Students registered for this project ? click <a href="#" id="students-add-event-listener">here</a> to add them.</h5>
+      	 </div>
+      	 <div id="student-add-form-wrapper">
+      	 </div>
+         <form id="edit-project" >
+         	<input type="hidden" id="pid" value="{{p.pid}}"/>
+            <h5>Project title</h5>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+               <input class="mdl-textfield__input" type="text" id="title" value="{{p.title}}"/>
+               <label class="mdl-textfield__label" for="username">Enter project title</label>
+            </div>
+            <h5>Project description</h5>
+            <div class="mdl-textfield mdl-js-textfield">
+               <textarea class="mdl-textfield__input" value="{{p.description}}" type="text" rows= "6" id="description" >{{p.description}}</textarea>
+               <label class="mdl-textfield__label" for="desc">Brief description of the project.</label>
+            </div>
+            <h5>Type of project: BTP or Honors?</h5>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+               <label class="mdl-radio mdl-js-radio" for="option1">
+               <input type="radio" id="btp" name="typeOfProject" class="mdl-radio__button" value="btp" {%if p.btp %}checked{% endif %}>
+               <span class="mdl-radio__label">BTP</span>
+               </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option2">
+               <input type="radio" id="honors" name="typeOfProject" value="honors" class="mdl-radio__button" {%if p.honors %}checked{% endif %}>
+               <span class="mdl-radio__label">Honors</span>
+               </label>
+            </div>
+            <h5>Keywords for the project.</h5>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+               <input class="mdl-textfield__input" value="{{p.keywords}}" type="text" id="keywords"/>
+               <label class="mdl-textfield__label" for="username">Enter keywords</label>
+            </div>
+            <h5>Summer Internship required?</h5>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+               <label class="mdl-radio mdl-js-radio" for="yes">
+               <input type="radio" id="yes" value="yes" name="summer" class="mdl-radio__button" {% if p.si_yes %}checked {% endif %}>
+               <span class="mdl-radio__label">Yes</span>
+               </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="no">
+               <input type="radio" id="no" value="no" name="summer" class="mdl-radio__button" {% if p.si_no %}checked {% endif %}>
+               <span class="mdl-radio__label">No</span>
+               </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="nyd">
+               <input type="radio" id="nyd" value="nyd" name="summer" class="mdl-radio__button" {% if p.si_nyd %}checked {% endif %}>
+               <span class="mdl-radio__label">Not yet decided</span>
+               </label>
+            </div>
+         </form>
+         <div class="button-container">       
+            <button onclick="submitIt()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="background:#607d8b; color:white; float:right;">SUBMIT</button/>
+         </div>
+          <div class="button-container">       
+    <a href="/btp/"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="background:rgb(227, 65, 59) none repeat scroll 0% 0%; color:white; float:right; margin-right:5px;">Cancel</button></a>
+  </div>
+         <div id="enter-project">
+            <a href="/edit-project/" style="color:green;">
+               <h4>
+                  <i class="fa fa-plus-circle" aria-hidden="true" ></i> Add a project
+               </h4>
+            </a>
+            <a href="/edit-project/" style="color:#3F518C;">
+               <h4><i class="fa fa-pencil-square" aria-hidden="true" ></i>Edit other projects
+               </h4>
+            </a>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){ $('#enter-project').hide();
+  	$('#student-add-form-wrapper').hide();
+  	window.addStudentInstance = function(){
+  		$('#student-add-form-wrapper').show();
+  		var students = [];
+  		$.get('/btp/get-current-students/', function(data){
+  			var json = $.parseJSON(data); 
+  			var select_students = json['students'];
+  		var sel = document.createElement('select');sel.setAttribute('data-si','add');
+
+  		for (var j = 0 ; j < select_students.length ; j++){
+  			var option = document.createElement('option');
+  			option.value = select_students[j]['user'];
+  			option.innerHTML = select_students[j]['name'];
+  			sel.appendChild(option);
+  		}
+  		document.getElementById('student-add-form-wrapper').appendChild(sel);
+  		var this_button = document.createElement('button');
+  		this_button.innerHTML = "Add this Student";
+  		this_button.setAttribute('onclick', 'submitStudent()');
+  		document.getElementById('student-add-form-wrapper').appendChild(this_button);
+  		var plus_button = document.createElement('button');
+  		plus_button.innerHTML = "+more students";
+  		plus_button.setAttribute('onclick', 'addStudentInstance()');
+  		document.getElementById('student-add-form-wrapper').appendChild(plus_button);
+  	});
+  	}
+  $('#students-add-event-listener').on('click', function(){
+  	$('#add-students-message').hide();
+  	$('#student-add-form-wrapper').show();addStudentInstance();
+  });	
+  window.submitIt =  function(){
+    var title = $('#title').val();
+    var description =$('#description').val(); 
+    var typeOfProject =$('input[name=typeOfProject]:checked').val(); 
+    var keywords =$('#keywords').val();
+    var summer =$('input[name=summer]:checked').val();
+    $.post('/btp/edit-submit-project/', {'title':title, 'pid':$('#pid').val(),
+      'description':description,
+      'typeOfProject':typeOfProject,
+      'keywords':keywords,
+      'summer':summer
+    }, function(data){
+      $('#edit-project').hide();$('.button-container').hide();
+      var msg =  document.createElement('p'); var msg_t = document.createTextNode('Project Updated Successfully');  msg.appendChild(msg_t); document.getElementById('fwrap').appendChild(msg);
+      });$('#enter-project').show();
+  }
+  window.addStudents = function(){
+  	var pid = $('#pid').val();
+  	$.post('/btp/add-students/'+pid+'/', {}, function(data){
+  		var msg1 =  document.createElement('p'); var msg1_t = document.createTextNode('Students added Successfully');  msg1.appendChild(msg1_t); document.getElementById('#student-add-form-wrapper').appendChild(msg);
+  	});
+  }
+});
+</script>
+{% endblock %}

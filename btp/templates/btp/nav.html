@@ -1,0 +1,159 @@
+{% load staticfiles %}
+ <script src="{% static 'index/js/material.min.js' %}"></script>
+<style>
+    .navbar-login{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+  }
+
+  .navbar-login-session
+  {
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+ }
+
+ .icon-size
+ {
+    font-size: 87px;
+    color: grey;
+ } .greyish{
+  color: grey;
+}
+    </style>
+<div  class="navbar-fixed-top navbar septem-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="septem-title mdl-layout-title">
+            <img class="septem-logo-image" src="{% static 'index/images/iiits-logo.png' %}" alt="IIIT-S"><span class="cosmos-logo">cosmos</span>
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="septem-header-spacer mdl-layout-spacer"></div>
+         
+          <!-- Navigation -->
+          <div class="septem-navigation-container" align="center">
+            <nav class="septem-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/btp/">BTP &amp; HONORS</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="http://10.0.3.21:8000/">ROOM BOOKING</a>
+              
+          </nav>
+          </div>
+          <span class="septem-mobile-title mdl-layout-title">
+            <img class="septem-logo-image" src="{% static 'index/images/iiits-logo.png' %}"><span class="cosmos-logo">cosmos</span>
+          </span>
+           <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> 
+                        <strong>{{ user.get_full_name }}</strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-8 greyish">
+                                        <p class="text-left"><strong>{{ user.get_full_name }}</strong></p>
+                                        <p class="text-left small">{{user.username}}</p>
+                                        <p class="text-left">
+                                            <a href="/secure/changepassword/" class="btn btn-primary btn-block btn-sm">change password</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="/accounts/signout/" class="btn btn-danger btn-block">sign out</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+      </div>
+<div  class="septem-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="septem-title mdl-layout-title">
+            <img class="septem-logo-image" src="{% static 'index/images/iiits-logo.png' %}" alt="IIIT-S"><span class="cosmos-logo">cosmos</span>
+          </span>
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="septem-header-spacer mdl-layout-spacer"></div>
+         
+          <!-- Navigation -->
+          <div class="septem-navigation-container">
+            <nav class="septem-navigation mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/btp/">BTP &amp; HONORS</a>
+              
+          </nav>
+          </div>
+          <span class="septem-mobile-title mdl-layout-title">
+            <img class="septem-logo-image" src="{% static 'index/images/iiits-logo.png' %}"><span class="cosmos-logo">cosmos</span>
+          </span>
+           <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> 
+                        <strong>{{ user.get_full_name }}</strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-8 greyish">
+                                        <p class="text-left"><strong>{{ user.get_full_name }}</strong></p>
+                                        <p class="text-left small">{{user.username}}</p>
+                                        <p class="text-left">
+                                            <a href="/secure/changepassword/" class="btn btn-primary btn-block btn-sm">change password</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="/accounts/signout/" class="btn btn-danger btn-block">sign out</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+      </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#logged-in').hide();
+
+  window.showDrop = function(){
+    $('#logged-in').toggle();
+  }
+  $('body').click(function(){
+    $('#logged-in').hide();
+  });
+});
+</script>
