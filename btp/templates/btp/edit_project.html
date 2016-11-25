@@ -73,6 +73,9 @@ input[type="file"]{
   padding: 15px;
 border-radius: 5px;
 }
+a{
+  color:indigo;
+}
 </style>
 <script src="{% static 'btp/js/material.min.js' %}"></script>
 <div class="col-lg-9 col-md-9" style="margin-top:25px; padding: 25px 10vw; min-height:80vh;">
@@ -91,20 +94,21 @@ border-radius: 5px;
           <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{x.code}}</span>
           <span class="mdl-chip__text">{{ x.title|capfirst }}</span>
           
-        </span>
+        </span><br>
 
-        <button onclick="showBox({{x.id}})"  class="mdl-color--indigo mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" onclick="select({{x.id}})"><span class="mdl-color-text--white"><i class="fa fa-upload" aria-hidden="true"></i>upload files</span></button> <button onclick="showBox({{x.id}})"  class=".mdl-color--red mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" style="margin-right:5px; background:#d32f2f;" onclick="select({{x.id}})"><span class="mdl-color-text--white"><i class="fa fa-archive" aria-hidden="true"></i>archive</span></button>
-        <a href="/btp/edit-project/{{x.id}}/"><button onclick="edit({{x.id}})" style="background:#607d8b; color:white; float:right; margin-right:5px;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="select({{x.id}})"><i class="fa fa-pencil" aria-hidden="true"></i>
-Edit</button></a>
-          {% if files_are_uploaded %}
+        <button onclick="showBox({{x.id}})"  class="upload-toast-show mdl-color--green mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" onclick="select({{x.id}})" data-toggle="tooltip" title="upload files"><span class="mdl-color-text--white"><i class="fa fa-upload" aria-hidden="true"></i></span></button>
+        <button onclick="showBox({{x.id}})"  class="archive-toast-show mdl-color--red mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" style="margin-right:5px; background:#d32f2f;" onclick="select({{x.id}})" data-toggle="tooltip" title="archive"><span class="mdl-color-text--white"><i class="fa fa-archive" aria-hidden="true"></i></span></button>
+        <a href="/btp/edit-project/{{x.id}}/"><button  onclick="edit({{x.id}})" style="background:#607d8b; color:white; float:right; margin-right:5px;" class="edit-toast-show mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="select({{x.id}})" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i>
+</button></a>
+          {% if x.files_are_uploaded %}
           <h5>Uploaded files</h5>
-         <ul class="list-group">{% for x in uploaded_files %}
+         <ul class="list-group">{% for y in x.uploaded_files %}
           <li class="list-group-item">
-            <a style="padding-left:5em; margin-left:5em;">
-              x.name
+            <a href="{{y.file_up.url}}" style="padding-left:15px; margin-left:5em;">
+              {{ y.file_name }}
             </a>
             &nbsp;
-            <a 
+            <a class="pull-right" href="/file-delete/{{y.id}}/" data-toggle="tooltip" title="delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
           </li>{%endfor %}{%endif%}
         </ul>
       </div>
@@ -113,7 +117,8 @@ Edit</button></a>
         <form id="file-submit-form" method="post" action="/upload-project-file/{{x.id}}/" enctype="multipart/form-data" >
     {% csrf_token %}
           <div class="fileUpload" style="display:inline;">
-          
+          <label>Enter a file name</label>
+          {{ fileform.file_name}}<br>
           {{ fileform.file_upload }}
         <button class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect disabled">
           UPLOAD
@@ -129,13 +134,51 @@ Edit</button></a>
         You have'nt entered any projects yet.
 		{% endfor %}
 	</div>
+
+<div id="upload-toast-content" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<div id="edit-toast-content" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<div id="archive-toast-content" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
 	</div>
 <script type="text/javascript">
 $('#fileUpload').hide();
-window.showBox =function(iden){
-    $('#fileUpload').show();
-    
-  }
-  
+window.showBox =function(iden){$('#fileUpload').show();}
+$('[data-toggle="tooltip"]').tooltip();  
+
+(function() {
+  'use strict';
+  window['counter'] = 0;
+  var snackbarContainerUpload = document.querySelector('#upload-toast-content');
+  var snackbarContainerEdit = document.querySelector('#edit-toast-content');
+  var snackbarContainerArchive = document.querySelector('#archive-toast-content');
+  var showToastButtonEdit = document.querySelector('.edit-toast-show');
+  var showToastButtonArchive = document.querySelector('.archive-toast-show');
+  var showToastButtonUpload = document.querySelector('.upload-toast-show');
+  showToastButtonEdit.addEventListener('mouseover', function() {
+    'use strict'; console.log('onmouseover');
+    var data = {message:'Help: Click to edit the project'};
+    snackbarContainerEdit.MaterialSnackbar.showSnackbar(data);
+  });
+  showToastButtonArchive.addEventListener('mouseover', function() {
+    'use strict';
+    var data = {message: 'Help: Project will be archived' };
+    snackbarContainerArchive.MaterialSnackbar.showSnackbar(data);
+  });
+  showToastButtonUpload.addEventListener('mouseover', function() {
+    'use strict';
+    var data = {message: 'Help: Click to upload a file' };
+    snackbarContainerUpload.MaterialSnackbar.showSnackbar(data);
+  });
+}());
+</script>
+
 </script>
 {% endblock %}

@@ -56,7 +56,15 @@ class Project(models.Model):
 			students.append(stud)
 			print students
 		return students
+	def files_are_uploaded(self):
+		if ProjectMedia.objects.filter(project=self).count():
+			return True
+		return False
+	def uploaded_files(self):
+		return ProjectMedia.objects.filter(project=self)
+
 class ProjectMedia(models.Model):
+	file_name = models.TextField(default='no name provided')
 	file_up = models.FileField(upload_to='static/files/')	
 	project = models.ForeignKey(Project)
 
