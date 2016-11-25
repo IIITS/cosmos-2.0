@@ -14,10 +14,12 @@ body{background-color: white;}
 }
 .form-wrapper p{}
 .card-single {
-    /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    padding:20px;
+transition: 0.3s;
+padding: 20px;
+padding-bottom: 40px;
+height: auto;
+min-height: 40px;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -29,12 +31,14 @@ body{background-color: white;}
   margin-bottom: 15px;
 }
 .mdl-chip__contact{
+
 height: 32px;
 width: 76px;
 border-radius: 36px;
 margin-right: 8px;
 font-size: 18px;
-line-height: 32px;}
+line-height: 32px;
+}
 .mdl-chip__text{
   font-size: 18px;
 vertical-align: middle;
@@ -50,7 +54,10 @@ display: inline-block;
     width: 300px;
     z-index: 4;
 }
-
+.mdl-chip--contact{
+  padding-left: 0;
+margin-bottom: 15px;
+}
 
 .mdl-textfield__input {
     box-sizing: border-box;
@@ -85,10 +92,23 @@ border-radius: 5px;
           <span class="mdl-chip__text">{{ x.title|capfirst }}</span>
           
         </span>
-        <button onclick="showBox({{x.id}})"  class="mdl-color--indigo mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" onclick="select({{x.id}})"><span class="mdl-color-text--white"><i class="fa fa-upload" aria-hidden="true"></i>upload files</span></button>
+
+        <button onclick="showBox({{x.id}})"  class="mdl-color--indigo mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" onclick="select({{x.id}})"><span class="mdl-color-text--white"><i class="fa fa-upload" aria-hidden="true"></i>upload files</span></button> <button onclick="showBox({{x.id}})"  class=".mdl-color--red mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" style="margin-right:5px; background:#d32f2f;" onclick="select({{x.id}})"><span class="mdl-color-text--white"><i class="fa fa-archive" aria-hidden="true"></i>archive</span></button>
         <a href="/btp/edit-project/{{x.id}}/"><button onclick="edit({{x.id}})" style="background:#607d8b; color:white; float:right; margin-right:5px;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="select({{x.id}})"><i class="fa fa-pencil" aria-hidden="true"></i>
 Edit</button></a>
+          {% if files_are_uploaded %}
+          <h5>Uploaded files</h5>
+         <ul class="list-group">{% for x in uploaded_files %}
+          <li class="list-group-item">
+            <a style="padding-left:5em; margin-left:5em;">
+              x.name
+            </a>
+            &nbsp;
+            <a 
+          </li>{%endfor %}{%endif%}
+        </ul>
       </div>
+      
       <div class="mdl-color--teal col-lg-12 col-md-12 col-sm-12 col-xs-12" id="fileUpload"> 
         <form id="file-submit-form" method="post" action="/upload-project-file/{{x.id}}/" enctype="multipart/form-data" >
     {% csrf_token %}
