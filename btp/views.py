@@ -243,11 +243,26 @@ def getCurrentStudents(request):
 
 @csrf_exempt
 def uploadProjectFileFaculty(request, **kwargs):
-	print request.FILES
-	print "POST"
-	print request.POST
-	P = ProjectMedia(file_up=request.FILES['file_upload'], project = Project.objects.get(id=kwargs['id']))
+	
+	P = ProjectMedia(file_name=request.POST['file_name'],file_up=request.FILES['file_upload'], project = Project.objects.get(id=kwargs['id']))
 	P.save()
-	return HttpResponse('success')
+	return HttpResponseRedirect('/edit-project/')
 
 
+def deleteUploadedProjectMedia(request, **kwargs):
+	ProjectMedia.objects.get(id=kwargs['id']).delete()
+	return HttpResponseRedirect('/edit-project/')
+
+def moveProjectToArchives(request, **kwargs):
+	p = Project.objects.get(id=kwargs['id'])
+	pa = ProjectArchives(code = p.code,
+						title =  p.title,
+						description = p.description,
+						keywords = p.keywords,
+						typeOfProject= p.typeOfProject,
+						supervisors = p.supervisors,
+						year= p.year,
+						summer =p.summer)
+	pa.save()
+	p.delete()
+	return HttpResponseRedirect('/edit-project/')						

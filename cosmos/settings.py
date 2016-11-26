@@ -132,7 +132,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL ='/accounts/login/'
 LOGOUT_URL = LOGIN_REDIRECT_URL
 
-MEDIA_ROOT = '/var/www/cosmosenv/cosmos/btp/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

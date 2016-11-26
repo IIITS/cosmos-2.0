@@ -16,5 +16,6 @@ admin.site.register(Resources)
 admin.site.register(BTPMarks)
 admin.site.register(Project)
 admin.site.register(ProjectMedia)
+admin.site.register(ProjectArchives)
 admin.site.site_header = 'Cosmos Administrator'
 
