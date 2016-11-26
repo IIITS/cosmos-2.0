@@ -252,3 +252,17 @@ def uploadProjectFileFaculty(request, **kwargs):
 def deleteUploadedProjectMedia(request, **kwargs):
 	ProjectMedia.objects.get(id=kwargs['id']).delete()
 	return HttpResponseRedirect('/edit-project/')
+
+def moveProjectToArchives(request, **kwargs):
+	p = Project.objects.get(id=kwargs['id'])
+	pa = ProjectArchives(code = p.code,
+						title =  p.title,
+						description = p.description,
+						keywords = p.keywords,
+						typeOfProject= p.typeOfProject,
+						supervisors = p.supervisors,
+						year= p.year,
+						summer =p.summer)
+	pa.save()
+	p.delete()
+	return HttpResponseRedirect('/edit-project/')						
