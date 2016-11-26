@@ -25,16 +25,25 @@ body{background-color: white;}
   margin-top:15px;
   margin-bottom: 15px;
 }
+#student-submit button{
+ background: indigo;
+color: white;
+padding: 5px 10px;
+border: 1px solid indigo;
+margin: 5px 0;
+border-radius: 5px;
+}
 </style>
 <script src="{% static 'btp/js/material.min.js' %}"></script>
 <div class="col-lg-9 col-md-9" style="padding: 25px 10vw;">
    <div id="editor-console">
       <div id="fwrap" class="form-wrapper card-single">
       	<div id="add-students-message">
-      	 <h5>Students registered for this project ? click <a href="#" id="students-add-event-listener">here</a> to add them.</h5>
+      	 <!--h5>Students registered for this project ? click <a href="#" id="students-add-event-listener">here</a> to add them.</h5-->
       	 </div>
       	 <div id="student-add-form-wrapper">
       	 </div>
+         <div id="student-submit"></div>
          <form id="edit-project" >
          	<input type="hidden" id="pid" value="{{p.pid}}"/>
             <h5>Project title</h5>
@@ -115,19 +124,26 @@ body{background-color: white;}
   			var option = document.createElement('option');
   			option.value = select_students[j]['user'];
   			option.innerHTML = select_students[j]['name'];
+        if(j==0){
+          option.setAttribute('selected','selected');
+        }
   			sel.appendChild(option);
   		}
   		document.getElementById('student-add-form-wrapper').appendChild(sel);
-  		var this_button = document.createElement('button');
-  		this_button.innerHTML = "Add this Student";
-  		this_button.setAttribute('onclick', 'submitStudent()');
-  		document.getElementById('student-add-form-wrapper').appendChild(this_button);
   		var plus_button = document.createElement('button');
   		plus_button.innerHTML = "+more students";
   		plus_button.setAttribute('onclick', 'addStudentInstance()');
   		document.getElementById('student-add-form-wrapper').appendChild(plus_button);
+      var this_button = document.createElement('button');
+      this_button.innerHTML = "Submit these students";
+      this_button.setAttribute('onclick', 'submitStudent()');
+
+      document.getElementById('student-submit').appendChild(this_button);
   	});
   	}
+    window.submitStudent = function(){
+      console.log($('#student-add-form-wrapper > select[data-si=add] > option:selected'));
+    }
   $('#students-add-event-listener').on('click', function(){
   	$('#add-students-message').hide();
   	$('#student-add-form-wrapper').show();addStudentInstance();

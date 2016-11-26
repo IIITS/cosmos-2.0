@@ -234,7 +234,7 @@ def addStudentsToProject(request):
 	return HttpResponseRedirect('/')	
 
 def getCurrentStudents(request):
-	st = Student.objects.all()
+	st = Student.objects.filter(year='2016')
 	st_list = list()
 	for s in st:
 		st_list.append(
