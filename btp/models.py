@@ -54,7 +54,6 @@ class Project(models.Model):
 			s = st[i]
 			stud = Student.objects.get(user__username=str(s))
 			students.append(stud)
-			print students
 		return students
 	def files_are_uploaded(self):
 		if ProjectMedia.objects.filter(project=self).count():
@@ -77,6 +76,7 @@ class ProjectArchives(models.Model):
 	supervisors = models.TextField()
 	year= models.TextField()
 	summer =models.TextField()
+	restored = models.BooleanField(default=False)
 	
 
 class Student(models.Model):

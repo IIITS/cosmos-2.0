@@ -93,6 +93,13 @@ class EditProject(TemplateView):
 		context = super(EditProject,self).get_context_data(**kwargs)
 		projects = Project.objects.filter(supervisors__contains=str(self.request.user))
 		context = {'title':'Manage Project', 'projects':projects, 'fileform':FileUploadForm }
+		pa = ProjectArchives.objects.filter(supervisors__contains=self.request.user.username, restored=False)
+		if pa.count() > 0:
+			context['projects_are_archived']=True
+			context['archived_projects']=pa
+		else:
+			context['projects_are_archived']=False
+			context['archived_projects']=[]	
 		return context		
 
 class EditProjectInstance(TemplateView):
@@ -266,3 +273,18 @@ def moveProjectToArchives(request, **kwargs):
 	pa.save()
 	p.delete()
 	return HttpResponseRedirect('/edit-project/')						
+
+def restoreFromArchives(request, **kwargs):
+	pid = kwargs['id']
+	pa = ProjectArchives.objects.get(id=pid)
+	p = Project(code=pa.code,
+			title=pa.title,
+			description=pa.description,
+			keywords=pa.keywords,
+			typeOfProject=pa.typeOfProject,
+			supervisors=pa.supervisors,
+			summer=pa.summer,
+			year=pa.year)
+	p.save()
+	pa.restored = True
+	return HttpResponseRedirect('/edit-project/')

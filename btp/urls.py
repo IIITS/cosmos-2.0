@@ -28,7 +28,8 @@ urlpatterns = [
 	url(r'btp/get-current-students/$', login_required(views.getCurrentStudents)),
 	url(r'upload-project-file/(?P<id>[0-9]+)/$', login_required(views.uploadProjectFileFaculty)),
 	url(r'^file-delete/(?P<id>[0-9]+)/$', login_required(views.deleteUploadedProjectMedia)),
-	url(r'^move-to-archives/(?P<id>[0-9]+)/$', login_required(views.moveProjectToArchives))
+	url(r'^move-to-archives/(?P<id>[0-9]+)/$', login_required(views.moveProjectToArchives)),
+	url(r'^archive-restore/(?P<id>[0-9]+)/$', login_required(views.restoreFromArchives))
 ]
 if settings.SERVE_MEDIA:
     urlpatterns += (

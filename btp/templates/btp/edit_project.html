@@ -147,6 +147,21 @@ a{
       <div class="card-single" style="margin-bottom:20px; padding-bottom:20px;">
         You have'nt entered any projects yet.
 		  {% endfor %}
+      {% if projects_are_archived %}
+        <h5>Archived Projects</h5>
+            <ul class="list-group">
+              {% for y in archived_projects %}
+                <li class="list-group-item">
+                  <span style="padding-left:15px; margin-left:5em;">
+                   {{ y.title }}
+                  </span>&nbsp;
+                  <a class="pull-right" href="/archive-restore/{{y.id}}/" data-toggle="tooltip" title="restore">
+                    <i class="fa fa-retweet" aria-hidden="true"></i>
+                  </a>
+                </li>
+              {%endfor %}
+              </ul>
+      {% endif %}
 	    </div>
   </div>
   <div id="upload-toast-content" class="mdl-js-snackbar mdl-snackbar">
