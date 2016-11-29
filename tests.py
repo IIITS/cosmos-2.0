@@ -1,15 +1,20 @@
 import os
 
 def git_commit(directory):
-	
-	lst = os.listdir(directory)
-	print lst
-	for x in lst:
-		#if os.path.isfile(str(x)):
-			os.system("git add %s/%s" %(directory,x))
-			os.system("git commit -m \"Adding gp\"")
-			print "Added %s" % (x)
-
-git_commit("gp")
+	if os.path.isdir(directory):
+		lst = os.listdir(directory)
+		print lst
+		for x in lst:
+			if os.path.isfile(str(x)):
+				os.system("git add %s/%s" %(directory,x))
+				os.system("git commit -m \"Adding gp\"")
+			else:
+				git_commit(directory+"/"+x)
+	else:
+		os.system("git add %s" %(directory))
+		os.system("git commit -m \"Adding gp\"")
+					
+fol = raw_input("Enter the location:")
+git_commit(fol)
 print "Added all files...\nPreparing for pushing to master\n"
 #os.system("git push origin master")		
