@@ -3,6 +3,7 @@ import os
 def git_commit(directory):
 	
 	lst = os.listdir(directory)
+	print lst
 	for x in lst:
 		if os.path.isfile(str(x)):
 			os.system("git add %s" %(x))
@@ -11,4 +12,4 @@ def git_commit(directory):
 
 git_commit("gp")
 print "Added all files...\nPreparing for pushing to master\n"
-os.system("git push origin master")		
+#os.system("git push origin master")		
