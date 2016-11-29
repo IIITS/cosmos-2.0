@@ -10,6 +10,7 @@ def git_commit(directory):
 		elif os.path.isfile(str(x)):
 			os.system("git add %s" %(x))
 			os.system("git commit -m \"Adding gp\"")
+			print "Added %s" % (x)
 
 git_commit("gp")
 print "Added all files...\nPreparing for pushing to master\n"
