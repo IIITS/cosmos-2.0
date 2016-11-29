@@ -42,7 +42,9 @@ class BTPIndexView(TemplateView):
 			   'faculty':faculty,
 			   'header':'B-Tech Projects Portal',
                            'MEDIA_URL':settings.MEDIA_URL,
-                'batches':batches           
+                'batches':batches,
+                'new_btp_projects':Project.objects.filter(year='2016').filter(typeOfProject='btp').order_by('title'),
+                'new_honor_projects':Project.objects.filter(year='2016').filter(typeOfProject='honors').order_by('title')        
 			   		
 		}
 		context['is_fac'] = False

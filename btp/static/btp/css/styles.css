@@ -1,7 +1,7 @@
 footer{padding: 7.5vh 10px;}
 body {
   margin: 0;
-  background: #e3e6e5;
+  /*background: #e3e6e5;*/
 }
 
 /* Disable ugly boxes around images in IE10 */
@@ -715,9 +715,9 @@ _:-ms-input-placeholder, :root .demo-graph {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
-
+.cosmos-project-code{}
 /* Bootstrap based stylings start here */
-.navbar { background: white;}
+.navbar { background: white; border-bottom: 1px solid #D1B88D;}
 .sidenav {background: white;}
 #sidebar-wrapper {
     z-index: 1000;
@@ -727,7 +727,7 @@ _:-ms-input-placeholder, :root .demo-graph {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #797979;
+    background: #D1B88D;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -750,7 +750,7 @@ _:-ms-input-placeholder, :root .demo-graph {
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: white;
+    color: #4a2b18;
 }
 
 .sidebar-nav li a:hover {
