@@ -5,7 +5,7 @@ def git_commit(directory):
 	lst = os.listdir(directory)
 	print lst
 	for x in lst:
-		if os.path.isfile(str(x)):
+		#if os.path.isfile(str(x)):
 			os.system("git add %s" %(x))
 			os.system("git commit -m \"Adding gp\"")
 			print "Added %s" % (x)
