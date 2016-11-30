@@ -65,7 +65,7 @@ font-variant: super;
     color: #fff;
 }
 .project-wrapper{
-padding: 15px 15px;
+padding: 35px 15px;
 box-shadow: 1px 1px 3px;
 }
 </style>
@@ -85,9 +85,9 @@ box-shadow: 1px 1px 3px;
                <span class="card-subtitle">B.Tech Projects</span><br>
                {% for x in f.get_btp_projects %}
                <div class="project-wrapper">
-                  <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-               <span class="cosmos-project-code mdl-color--teal mdl-color-text--white">{{x.code}}</span></div>
-               <div class="col-lg-11 col-sm-11 col-md-11 col-xs-11"><span class="mdl-chip__text"><p style="max-width:100%;">{{ x.title|capfirst }}</p></span></div><b>STUDENTS: &nbsp;</b>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-">
+               <div class="cosmos-project-code mdl-color--teal mdl-color-text--white"><center>{{x.code}}</center></div></div>
+               <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="min-height:120px;"><span class="mdl-chip__text"><p class="cosmos-project-title">{{ x.title|capfirst }}</p></span></div><b>STUDENTS: &nbsp;</b>
                   {% for s in x.get_students %}
                   <span class="mdl-chip cosmos-small-chip mdl-color--blue">
                   <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
