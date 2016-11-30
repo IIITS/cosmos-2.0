@@ -715,7 +715,14 @@ _:-ms-input-placeholder, :root .demo-graph {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
-.cosmos-project-code{}
+.cosmos-project-code{width: 96px;
+height: 96px;
+font-size: 20px;
+vertical-align: middle;
+padding-top: 36px;}
+.cosmos-project-title{max-width: 100%;
+font-size: 20px;
+font-weight: bold;}
 /* Bootstrap based stylings start here */
 .navbar { background: white; border-bottom: 1px solid #D1B88D;}
 .sidenav {background: white;}
