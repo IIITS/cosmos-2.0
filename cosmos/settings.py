@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework',
+    #'rest_framework',
     'btp',
     'gp',
     'django.contrib.admin',
