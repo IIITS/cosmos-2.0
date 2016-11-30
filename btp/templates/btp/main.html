@@ -1,11 +1,11 @@
 {%if is_fac %}
 <div id="enter-project">
-  <a href="/add-project/" style="color:green;">
+  <a href="/btp/add-project/" style="color:green;">
     <h4>
       <i class="fa fa-plus-circle" aria-hidden="true" ></i> Add a project
     </h4>
   </a>
-  <a href="/edit-project/" style="color:#3F518C;">
+  <a href="/btp/edit-project/" style="color:#3F518C;">
     <h4><i class="fa fa-pencil-square" aria-hidden="true" ></i>Manage your projects
     </h4>
   </a>
@@ -82,11 +82,11 @@ box-shadow: 1px 1px 3px;
          </div>
          <div id="students--{{f.user.id}}" class="card-action card-action-sub card-action--inactive col-lg-12 col-md-12">
             <div class="col-lg-12 col-md-12">
-               <span class="card-subtitle">B.Tech Projects</span><br>
+               <div class="card-subtitle"><span>B.Tech Projects</span></div><br>
                {% for x in f.get_btp_projects %}
                <div class="project-wrapper">
                   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-">
-               <div class="cosmos-project-code mdl-color--teal mdl-color-text--white"><center>{{x.code}}</center></div></div>
+               <div class="cosmos-project-code  mdl-color-text--white"><center>{{x.code}}</center></div></div>
                <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="min-height:120px;"><span class="mdl-chip__text"><p class="cosmos-project-title">{{ x.title|capfirst }}</p></span></div><b>STUDENTS: &nbsp;</b>
                   {% for s in x.get_students %}
                   <span class="mdl-chip cosmos-small-chip mdl-color--blue">
@@ -101,21 +101,20 @@ box-shadow: 1px 1px 3px;
                {% endfor %}
             </div>
             <div class="col-lg-12 col-md-12">
-               <span class="card-subtitle">Honors Projects</span><br>
+               <div class="card-subtitle"><span>Honors Projects</span></div><br>
                {% for x in f.get_honors_projects %}
                <div class="project-wrapper">
-               <br><div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-               <span class="cosmos-project-code mdl-color--teal mdl-color-text--white">{{x.code}}</span></div>
-               <div class="col-lg-11 col-sm-11 col-md-11 col-xs-11"><span class="mdl-chip__text"><p style="max-width:100%;">{{ x.title|capfirst }}</p></span></div>
-               <b>STUDENTS: &nbsp;</b>
-               {% for s in x.get_students %}
-               <span class="cosmos-small-chip mdl-color--blue">
-               <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
-               </span>
-               {% empty %}
-               This project is not taken by any students yet.<br>
-               {% endfor %}
-               </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-">
+               <div class="cosmos-project-code  mdl-color-text--white"><center>{{x.code}}</center></div></div>
+               <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="min-height:120px;"><span class="mdl-chip__text"><p class="cosmos-project-title">{{ x.title|capfirst }}</p></span></div><b>STUDENTS: &nbsp;</b>
+                  {% for s in x.get_students %}
+                  <span class="mdl-chip cosmos-small-chip mdl-color--blue">
+                  <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
+                  </span>
+                  {% empty %}
+                  This project is not taken by any students yet.<br>
+                  {% endfor %}
+                </div>
                {% empty %}
                <span class="list-specifier">No Honors Projects specified.</span>
                {% endfor %}<br>
