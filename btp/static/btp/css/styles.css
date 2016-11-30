@@ -719,7 +719,8 @@ _:-ms-input-placeholder, :root .demo-graph {
 height: 96px;
 font-size: 20px;
 vertical-align: middle;
-padding-top: 36px;}
+padding-top: 36px;
+box-shadow: 1px 1px 3px black;background: #64302d;}
 .cosmos-project-title{max-width: 100%;
 font-size: 20px;
 font-weight: bold;}
@@ -805,9 +806,14 @@ font-weight: bold;}
 }
 .card-action--active{
   display: block;
+  border: 1px solid #d1b88d;
+  margin-bottom: 40px;
 }
 .card-subtitle{
-  color:grey; font-weight: bold;
+  color: black;
+font-weight: bold;
+font-size: 20px;
+text-align: center; padding: 20px 0px;
 }
 .list-specifier{
   display: block;
