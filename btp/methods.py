@@ -238,17 +238,27 @@ def createUG3():
 			print "User already exist, %s" % str(j[k]["name"])
 
 def s():
-	subject = "Would you suggest any changes to the email template ?"
-	to = ["sahal.k13@iiits.in", "hvraman@iiits.in"]
-	from_email = '[do-not-reply] Cosmos support <no-reply@cosmos.iiits.in>'
-	ctx = {
-        'username': 'sahal.k13@iiits.in',
-        'title':'Welcome to cosmos family.',
-        'password':'L4nk3w9jqnk',
-        "name":"Sahal Sajjad"
-    }
+	f = open("/home/user/Classified/ug3_json","r")
+	f_line = f.readline()
+	j = dict(json.loads(f_line))
+	for k in j:
+		
+			name = str(j[k]["name"].encode('utf-8')) 
+			password = str(j[k]["password"].encode('utf-8'))
+			username= str(k.encode('utf-8'))
+			subject = "Welcome to cosmos.iiits.in - Your workplace of projects at IIIT"
+			to = [username]
+			bcc = ["sahalsajjad@gmail.com"]
+			from_email = '[do-not-reply] Cosmos support <no-reply@cosmos.iiits.in>'
+			ctx = {
+        		'username': username,
+        		'title':'Welcome to cosmos family.',
+        		'password':password,
+        		"name":name
+    		}
 
-	message = get_template('email/signedup_welcome.html').render(Context(ctx))
-	msg = EmailMessage(subject, message, to=to, from_email=from_email)
-    	msg.content_subtype = 'html'
-    	msg.send()
+			message = get_template('email/signedup_welcome.html').render(Context(ctx))
+			msg = EmailMessage(subject, message, to=to, from_email=from_email, bcc=bcc)
+	    		msg.content_subtype = 'html'
+    			msg.send()
+    			print "Email sent for %s ..." % (name)
