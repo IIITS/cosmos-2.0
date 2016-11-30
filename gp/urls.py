@@ -3,8 +3,8 @@ from gp.views import *
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import password_change
-
-urlpatterns = [
+'''
+#urlpatterns = [
 			url(r'^$', homeRedirect),
 			url(r'^complaint/post/$',PostComplaint.as_view(),name = 'postcomplaint'),
 			url(r'^accounts/login/$',LoginView.as_view(),name = 'login'),
@@ -16,4 +16,4 @@ urlpatterns = [
 			url(r'^get/suggestion/$', getSuggestions, name='getsuggestion'),
 			url(r'^signout/$', signout, name='logout'),
 			url(r'^changepassword/',login_required(password_change),name='passwordchange',kwargs={'post_change_redirect':settings.LOGIN_URL}),	
-		]
+		]'''
