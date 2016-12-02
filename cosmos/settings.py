@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     #'rest_framework',
     'btp',
+    'accounts',
     'gp',
     'django.contrib.admin',
     'django.contrib.auth',
