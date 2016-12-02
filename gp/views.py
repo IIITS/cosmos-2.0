@@ -1,4 +1,4 @@
-from django.shortcuts import render
+'''from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
@@ -203,4 +203,4 @@ def signout(request):
 	logout(request)
 	return HttpResponseRedirect(settings.LOGOUT_URL)
 		
-
+'''
