@@ -3,9 +3,11 @@ from django.contrib import admin
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from btp import views as btp_views
+from accounts import urls as accounts_urls
 
 urlpatterns = [
 	url(r'^$', login_required(btp_views.IndexView.as_view()), name='homepage'),
+	url(r'^accounts/', include('accounts.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^btp/', include('btp.urls', namespace='btp')),
     url(r'^btp/static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
