@@ -1,4 +1,4 @@
-'''from django.shortcuts import render
+from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
@@ -19,29 +19,7 @@ from django.contrib.auth.decorators import login_required
 from methods import Is_incharge
 from django.core.exceptions import ObjectDoesNotExist
 
-# Create your views here.
-class LoginView(FormView):
-	form_class = LoginForm
-	template_name = 'login.html'
-	success_url = settings.LOGIN_REDIRECT_URL
-		
-	def form_valid(self,form):
-		redirect_to = settings.LOGIN_REDIRECT_URL
-        	login(self.request, form.get_user())
-        	if self.request.session.test_cookie_worked():
-           		self.request.session.delete_test_cookie()
-        	return HttpResponseRedirect(redirect_to) 
-	
-	def form_invalid(self,form):	
-		return super(LoginView, self).form_invalid(form)
-	@method_decorator(sensitive_post_parameters())	
-	def dispatch(self, *args, **kwargs):
-		if self.request.user.is_active:
-			return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
-		return super(LoginView,self).dispatch(*args, **kwargs)
-	def get_context_data(self, **kwargs):
-			context = super(LoginView,self).get_context_data(**kwargs)
-			return context	
+
 
 class HomeView(TemplateView):
 	template_name ='complaints.html'
@@ -198,9 +176,3 @@ def getSuggestions(request):
 		suggestions = Suggestions.objects.filter(complaint=complaint)[begin:].value_list()	
 	return HttpResponse(suggestions)
 
-@login_required
-def signout(request):
-	logout(request)
-	return HttpResponseRedirect(settings.LOGOUT_URL)
-		
-'''
