@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import password_change
 
 urlpatterns = [
-			url(r'^$', homeRedirect),
+			url(r'^$', HomeView.as_view()),
 			url(r'^complaint/post/$',PostComplaint.as_view(),name = 'postcomplaint'),
 			url(r'^complaints/view/$',ViewComplaintByDomain.as_view(),name= 'complaints'),
 			url(r'^upvote/complaint/',Upvotes,name = 'upvote'),
