@@ -86,12 +86,12 @@ body{background-color: white;}
     <a href="/btp/"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="background:rgb(227, 65, 59) none repeat scroll 0% 0%; color:white; float:right; margin-right:5px;">Cancel</button></a>
   </div>
   <div id="enter-project">
-  <a href="/add-project/" style="color:green;">
+  <a href="/btp/add-project/" style="color:green;">
     <h4>
       <i class="fa fa-plus-circle" aria-hidden="true" ></i> Add another project
     </h4>
   </a>
-  <a href="/edit-project/" style="color:#3F518C;">
+  <a href="/btp/edit-project/" style="color:#3F518C;">
     <h4><i class="fa fa-pencil-square" aria-hidden="true" ></i>Manage existing projects
     </h4>
   </a>
@@ -106,7 +106,7 @@ body{background-color: white;}
     var typeOfProject =$('input[name=typeOfProject]:checked').val(); 
     var keywords =$('#keywords').val();
     var summer =$('input[name=summer]:checked').val();
-    $.post('/submit-project/', {'title':title, 
+    $.post('/btp/submit-project/', {'title':title, 
       'description':description,
       'typeOfProject':typeOfProject,
       'keywords':keywords,
