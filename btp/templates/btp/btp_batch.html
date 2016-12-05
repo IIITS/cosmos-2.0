@@ -7,7 +7,7 @@ document.getElementById("uploadBtn").onchange = function () {
 $('#file-submit-form').on('submit',function(){
 	    
 	    $.ajax({
-        	url : "post/report/", // the endpoint
+        	url : "/btp/post/report/", // the endpoint
         	type : "POST", // http method
         	data : { 'fileuploaded' : $('#uploadBtn').val() }, // data sent with the post request
 
@@ -22,7 +22,7 @@ $('#file-submit-form').on('submit',function(){
         	}
     	});
 	$.ajax({
-        	url : "post/report/", // the endpoint
+        	url : "/btp/post/report/", // the endpoint
         	type : "GET", // http method
         	data : { 'fileuploaded' : $('#uploadBtn').val() }, // data sent with the post request
 
