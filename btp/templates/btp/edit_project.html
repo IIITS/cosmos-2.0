@@ -94,7 +94,7 @@ a{
 		{% for x in projects %}
 			<div class="card-single" style="margin-bottom:20px; ">
         <div class="mdl-color--teal col-lg-12 col-md-12 col-sm-12 col-xs-12 fileUpload" id="fileUpload-{{x.id}}">
-        <form id="file-submit-form" method="post" action="/upload-project-file/{{x.id}}/" enctype="multipart/form-data" >
+        <form id="file-submit-form" method="post" action="/btp/upload-project-file/{{x.id}}/" enctype="multipart/form-data" >
           {% csrf_token %}
           <div class="file-upload" style="display:inline;">
             <label>Enter a file name</label>
@@ -115,7 +115,7 @@ a{
             <i class="fa fa-upload" aria-hidden="true"></i>
           </span>
         </button>
-          <a href="/move-to-archives/{{x.id}}/">
+          <a href="/btp/move-to-archives/{{x.id}}/">
             <button class="archive-toast-show mdl-color--red mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" style="margin-right:5px; background:#d32f2f;" onclick="select({{x.id}})" data-toggle="tooltip" title="archive">
               <span class="mdl-color-text--white">
               <i class="fa fa-archive" aria-hidden="true"></i></span>
@@ -134,7 +134,7 @@ a{
                   <a href="{{y.file_up.url}}" style="padding-left:15px; margin-left:5em;">
                    {{ y.file_name }}
                   </a>&nbsp;
-                  <a class="pull-right" href="/file-delete/{{y.id}}/" data-toggle="tooltip" title="delete">
+                  <a class="pull-right" href="/btp/file-delete/{{y.id}}/" data-toggle="tooltip" title="delete">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
                 </li>
@@ -155,7 +155,7 @@ a{
                   <span style="padding-left:15px; margin-left:5em;">
                    {{ y.title }}
                   </span>&nbsp;
-                  <a class="pull-right" href="/archive-restore/{{y.id}}/" data-toggle="tooltip" title="restore">
+                  <a class="pull-right" href="/btp/archive-restore/{{y.id}}/" data-toggle="tooltip" title="restore">
                     <i class="fa fa-retweet" aria-hidden="true"></i>
                   </a>
                 </li>
