@@ -8,6 +8,7 @@ body {
 a img{
   border: 0px;
 }
+
 a:focus{
   outline: none;
 }
@@ -27,7 +28,10 @@ a:focus{
  0 10px 10px rgba(0,0,0,.2),
  0 20px 20px rgba(0,0,0,.15);
 }
-
+.table-borderless td,
+.table-borderless th {
+    border: 0; text-align: left;
+}
 ::-moz-selection {
   background-color: #6ab344;
   color: #fff;
@@ -201,7 +205,7 @@ transition: color .3s ease;
 text-transform: uppercase;
 }
 .card-action a:hover{
-  color:#ffd8a6; text-decoration: none;
+  color:#ffd8a6; text-decoration: none;cursor: pointer;
 }
 .septem-be-together-section {
   position: relative;
