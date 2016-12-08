@@ -1,3 +1,4 @@
+{% load staticfiles %}
 {%if is_fac %}
 <div id="enter-project">
   <a href="/btp/add-project/" style="color:green;">
@@ -31,8 +32,9 @@ display: inline-block;
 margin-top: 15px;
 }
 .cosmos-small-chip{
-  height: 22px;
-font-variant: super;
+    height: 22px;
+    font-variant: super;
+    padding-bottom: 30px;
 }
 .mdl-badge[data-badge]::after {
     content: attr(data-badge);
@@ -88,8 +90,19 @@ box-shadow: 1px 1px 3px;
                {% for x in f.get_btp_projects %}
                <div class="project-wrapper">
                   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-">
-               <div class="cosmos-project-code  mdl-color-text--white"><center>{{x.code}}</center></div></div>
-               <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="min-height:120px;"><span class="mdl-chip__text"><p class="cosmos-project-title">{{ x.title|capfirst }}</p></span></div><b>STUDENTS: &nbsp;</b>
+                    <div class="cosmos-project-code  mdl-color-text--white"><center>{{x.code}}</center></div>
+                    {% if x.is_new %}
+                    <div><img src="{% static 'btp/img/new.png' %}" style="height: 40px;  position: absolute; z-index: 1;  top: 0;"></div>
+                    {% endif %}
+                  </div>
+               <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="min-height:120px;"><span class="mdl-chip__text"><p class="cosmos-project-title">{{ x.title|capfirst }}</p></span></div>
+               <table class="table-borderless table">
+               <tr> 
+                <td>BATCH </td><td>Jan - Dec {{x.year}}</td>
+               </tr> 
+               <tr>
+               <td>STUDENTS</td>
+               <td>
                   {% for s in x.get_students %}
                   <span class="mdl-chip cosmos-small-chip mdl-color--blue">
                   <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
@@ -97,18 +110,35 @@ box-shadow: 1px 1px 3px;
                   {% empty %}
                   This project is not taken by any students yet.<br>
                   {% endfor %}
+                </td>
+               </tr>
+               </table>  
+               {% if x.is_new %}
+                    {% include 'btp/main_project_more.html' %}
+              {% endif %}
                 </div>
                 {% empty %}
                   <span class="list-specifier">No B.Tech Projects specified.</span>
                {% endfor %}
+               
             </div>
             <div class="col-lg-12 col-md-12">
                <div class="card-subtitle"><span>Honors Projects</span></div><br>
                {% for x in f.get_honors_projects %}
                <div class="project-wrapper">
                   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-">
-               <div class="cosmos-project-code  mdl-color-text--white"><center>{{x.code}}</center></div></div>
-               <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="min-height:120px;"><span class="mdl-chip__text"><p class="cosmos-project-title">{{ x.title|capfirst }}</p></span></div><b>STUDENTS: &nbsp;</b>
+               <div class="cosmos-project-code  mdl-color-text--white"><center>{{x.code}}</center></div>
+               {% if x.is_new %}
+                    <div><img src="{% static 'btp/img/new.png' %}" style="height: 40px;  position: absolute; z-index: 1;  top: 0;"></div>
+              {% endif %}
+               </div>
+               <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10" style="min-height:120px;"><span class="mdl-chip__text"><p class="cosmos-project-title">{{ x.title|capfirst }}</p></span></div><table class="table-borderless table">
+               <tr> 
+                <td>BATCH </td><td>Jan - Dec {{x.year}}</td>
+               </tr> 
+               <tr>
+               <td>STUDENTS</td>
+               <td>
                   {% for s in x.get_students %}
                   <span class="mdl-chip cosmos-small-chip mdl-color--blue">
                   <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
@@ -116,6 +146,9 @@ box-shadow: 1px 1px 3px;
                   {% empty %}
                   This project is not taken by any students yet.<br>
                   {% endfor %}
+                </td>
+               </tr>
+               </table> 
                 </div>
                {% empty %}
                <span class="list-specifier">No Honors Projects specified.</span>
