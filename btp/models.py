@@ -37,7 +37,7 @@ class Project(models.Model):
 	is_taken = models.BooleanField(default=False)
 	students = models.TextField()
 	def __str__(self):
-		return str(self.code)+" - "+str(self.title) + "  "+ str(self.supervisors)
+		return str(self.code.encode('utf-8'))+" - "+str(self.title.encode('utf-8')) + "  "+ str(self.supervisors.encode('utf-8'))
 	def take_project(self, students):
 		self.is_taken = True
 		self.students = students
@@ -61,6 +61,8 @@ class Project(models.Model):
 		return False
 	def uploaded_files(self):
 		return ProjectMedia.objects.filter(project=self)
+	def is_new(self):
+		return int(self.year) > int(datetime.datetime.now().year) 	
 
 class ProjectMedia(models.Model):
 	file_name = models.TextField(default='no name provided')
