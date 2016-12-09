@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}{% load staticfiles %}
+{% block main %}
+<div class="col-lg-offset-4 col-md-offset-4"> 
+  <div class="col-lg-8 col-md-8" style="padding-top:50px;">
+    <form class="form" method="post" action=".">
+     {% csrf_token %} 
+      {{ form.as_p}}
+    <input type="submit" class="btn btn-info" value="execute">
+    </form>
+  </div>
+  <div id="results"></div>
+</div>
+<script type="text/javascript">
+  $.get('/btp/git/commands/', function(d){
+    var json = $.parseJSON(d);
+    var r = json['results'];
+    document.getElementById('results').innerHTML = "-----------"+getTime() +"-------------------";
+    for( var j = 0 ; j < r.length ; j++ ){
+      document.getElementById('results').innerHTML+= r[j];
+      document.getElementById('results').innerHTML+="<br>";
+    }
+  });
+</script>
+{% endblock %}
