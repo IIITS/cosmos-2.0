@@ -6,13 +6,13 @@
       <a href="/btp/#"  id="sidebar--faculty-link" class="hover-context hovered--active">Faculty-wise Projects</a>
     </li>
     <li>
-      <a href="/btp/#" id="sidebar--projects-link" class="hover-context hovered--inactive">Active Projects</a>
+      <a href="/btp/#" id="sidebar--students-link" class="hover-context hovered--inactive">Students</a>
     </li>
   </ul>    
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-  var parse = {'sidebar--projects-link':'main--projects','sidebar--faculty-link':'main--faculty'};
+  var parse = {'sidebar--students-link':'main--projects','sidebar--faculty-link':'main--faculty'};
   $('.hover-context').click(function(){
     $('.hovered--active').removeClass('hovered--active').addClass('hovered--inactive');
     $(this).removeClass('hovered--inactive').addClass('hovered--active');
