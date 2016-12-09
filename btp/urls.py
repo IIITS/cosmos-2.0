@@ -1,15 +1,12 @@
 from django.conf.urls import url
-from btp import views 
+from btp import views , git_views
 from django.conf import settings
 from django.contrib.auth.views import password_reset, logout
 from django.contrib.auth.forms import *
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-	url(r'^accounts/login/$', views.LoginView.as_view(),name='loginpage'),
-	url(r'^secure/changepassword/$', login_required(views.password_change),{'post_change_redirect' : '/password-changed/','password_change_form':PasswordChangeForm}),
-	url(r'^password-changed/$', login_required(views.IndexView.as_view()), name='password_change_done' ),
-	url(r'^accounts/signout/$', views.logout_view,name='logoutpage'),
+	url(r'^git/commands/$', git_views.GitCommand.as_view()),
 	url(r'^$', login_required(views.BTPIndexView.as_view()),name='btphomepage'),
 	url(r'^post/report/$', views.submit_report, name='submitreport'),
 	url(r'^add-project/$', login_required(views.AddProject.as_view())),
