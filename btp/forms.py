@@ -52,3 +52,6 @@ class ProjectUpdateForm(forms.ModelForm):
 class FileUploadForm(forms.Form):
     file_name = CharField(widget=TextInput(attrs={'class':'form-control', 'id':'filename','placeholder': 'Please enter a name for the file'}))
     file_upload = forms.FileField(forms.ClearableFileInput(attrs={'class':'mdl-textfield__input'}))
+
+class CommandForm(forms.Form):
+    command = CharField(widget=TextInput(attrs={'class':'form-control', 'id':'command','placeholder': 'Enter the command'}))
