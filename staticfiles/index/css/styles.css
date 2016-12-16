@@ -1,12 +1,32 @@
 
 body {
   margin: 0;
+  background: url('../images/slide02.jpg') repeat;
 }
+
 
 /* Disable ugly boxes around images in IE10 */
 a img{
   border: 0px;
 }
+a:hover{
+  text-decoration: none;
+}
+a {
+  color: #024806;
+}
+.glass::before {
+    background: url('../images/slide02.jpg') repeat;
+}
+.glass {
+  background-color: white;
+  color: #024806; 
+  background: rgba(230,240,255,0.4);
+  border: 2px solid transparent;
+  box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.15);
+  border-radius: 4px;
+}
+
 .cosmos-logo{
  font:normal 40px Arial;
  color:#FFFFFF;
@@ -67,8 +87,8 @@ a img{
 
 .septem-header {
   overflow: visible;
-  background-color: white;
-}
+    background: url('../images/slide02.jpg') repeat;
+     }
 
   .septem-header .material-icons {
     color: #767777 !important;
@@ -80,7 +100,7 @@ a img{
   }
 
   .septem-header .mdl-navigation__link {
-    color: #757575;
+    color: #024806;
     font-weight: 700;
     font-size: 14px;
   }
@@ -91,7 +111,7 @@ a img{
     -webkit-box-ordinal-group: 2;
     -webkit-order: 1;
         -ms-flex-order: 1;
-            order: 1;
+            order: 0;
     width: 500px;
     -webkit-transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
         width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -124,7 +144,7 @@ a img{
   }
 
     .septem-navigation .mdl-navigation__link:hover {
-      border-bottom: 4px solid black;
+      border-bottom: 4px solid #024806;
     }
 
  
@@ -137,8 +157,8 @@ a img{
   height: 800px;
   width: auto;
   background-color: #f3f3f3;
-  background: url('../images/slide02.jpg') center 30% no-repeat;
-  background-size: cover;
+  background: url('../images/slide02.jpg') repeat;
+  
 }
 
 .logo-font {
