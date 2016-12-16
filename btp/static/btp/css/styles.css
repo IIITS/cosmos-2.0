@@ -1,9 +1,11 @@
 footer{padding: 7.5vh 10px;}
 body {
   margin: 0;
-  /*background: #e3e6e5;*/
+  background: url('../images/slide02.jpg') repeat;
 }
-
+.container-fluid{
+  background: url("../img/slide02.jpg") repeat;
+}
 /* Disable ugly boxes around images in IE10 */
 a img{
   border: 0px;
@@ -14,9 +16,10 @@ a:focus{
 }
 a:hover{
   text-decoration: none;
+  border-bottom: 4px solid 024806 !important;
 }
 a {
-  color: #024806;
+  color: #024806 !important;
 }
 .glass::before {
     background: url('../images/slide02.jpg') repeat;
@@ -93,7 +96,6 @@ a {
 
 .septem-header {
   overflow: visible;
-  background-color: white;
 }
 
   .septem-header .material-icons {
@@ -156,7 +158,7 @@ a {
   }
 
     .septem-navigation .mdl-navigation__link:hover {
-      border-bottom: 4px solid black;
+      border-bottom: 4px solid #024806;
     }
 
  .card{
@@ -747,21 +749,22 @@ box-shadow: 1px 1px 3px black;background: #64302d;}
 font-size: 20px;
 font-weight: bold;}
 /* Bootstrap based stylings start here */
-.navbar { background: white; border-bottom: 1px solid #D1B88D;}
+.navbar {background: url("../img/slide02.jpg") repeat; }
 .sidenav {background: white;}
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
     left: 250px;
     width: 0;
-    height: 100%;
+    height: 99%;
     margin-left: -250px;
-    overflow-y: auto;
+    overflow-y: auto
     background: #D1B88D;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    margin-top:0.1%;
 }
 .sidebar-nav {
     position: absolute;
