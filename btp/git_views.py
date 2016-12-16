@@ -16,7 +16,7 @@ class GitCommand(FormView):
 		p = f.readlines()
 		k =""
 		for x in p:
-			k+= x.strip()+"<br>"
+			k+= x+"<br>"
 		
 		f.close()
 		return HttpResponse(k)
