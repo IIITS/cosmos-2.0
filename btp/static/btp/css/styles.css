@@ -12,6 +12,24 @@ a img{
 a:focus{
   outline: none;
 }
+a:hover{
+  text-decoration: none;
+}
+a {
+  color: #024806;
+}
+.glass::before {
+    background: url('../images/slide02.jpg') repeat;
+}
+.glass {
+  background-color: white;
+  color: #024806; 
+  background: rgba(230,240,255,0.4);
+  border: 2px solid transparent;
+  box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.15);
+  border-radius: 4px;
+}
+
 .cosmos-logo{
  font:normal 40px Arial;
  color:#FFFFFF;
