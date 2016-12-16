@@ -1,16 +1,38 @@
-
+footer{padding: 7.5vh 10px;}
 body {
   margin: 0;
-  background: #e3e6e5;
+  background: url('../images/slide02.jpg') repeat;
 }
-
+.container-fluid{
+  background: url("../img/slide02.jpg") repeat;
+}
 /* Disable ugly boxes around images in IE10 */
 a img{
   border: 0px;
 }
+
 a:focus{
   outline: none;
 }
+a:hover{
+  text-decoration: none;
+  border-bottom: 4px solid 024806 !important;
+}
+a {
+  color: #024806 !important;
+}
+.glass::before {
+    background: url('../images/slide02.jpg') repeat;
+}
+.glass {
+  background-color: white;
+  color: #024806; 
+  background: rgba(230,240,255,0.4);
+  border: 2px solid transparent;
+  box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.15);
+  border-radius: 4px;
+}
+
 .cosmos-logo{
  font:normal 40px Arial;
  color:#FFFFFF;
@@ -27,7 +49,10 @@ a:focus{
  0 10px 10px rgba(0,0,0,.2),
  0 20px 20px rgba(0,0,0,.15);
 }
-
+.table-borderless td,
+.table-borderless th {
+    border: 0; text-align: left;
+}
 ::-moz-selection {
   background-color: #6ab344;
   color: #fff;
@@ -71,7 +96,6 @@ a:focus{
 
 .septem-header {
   overflow: visible;
-  background-color: white;
 }
 
   .septem-header .material-icons {
@@ -98,7 +122,7 @@ a:focus{
     -webkit-box-ordinal-group: 2;
     -webkit-order: 1;
         -ms-flex-order: 1;
-            order: 1;
+            order: 0;
     width: 500px;
     -webkit-transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
         width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -114,6 +138,9 @@ a:focus{
         -ms-flex-pack: end;
             justify-content: flex-end;
     width: 800px;
+  }
+  .septem-navigation a:hover{
+    cursor: pointer;
   }
 
   .septem-search-box.is-focused + .septem-navigation-container {
@@ -131,7 +158,7 @@ a:focus{
   }
 
     .septem-navigation .mdl-navigation__link:hover {
-      border-bottom: 4px solid black;
+      border-bottom: 4px solid #024806;
     }
 
  .card{
@@ -198,7 +225,7 @@ transition: color .3s ease;
 text-transform: uppercase;
 }
 .card-action a:hover{
-  color:#ffd8a6; text-decoration: none;
+  color:#ffd8a6; text-decoration: none;cursor: pointer;
 }
 .septem-be-together-section {
   position: relative;
@@ -712,23 +739,32 @@ _:-ms-input-placeholder, :root .demo-graph {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
-
+.cosmos-project-code{width: 96px;
+height: 96px;
+font-size: 20px;
+vertical-align: middle;
+padding-top: 36px;
+box-shadow: 1px 1px 3px black;background: #64302d;}
+.cosmos-project-title{max-width: 100%;
+font-size: 20px;
+font-weight: bold;}
 /* Bootstrap based stylings start here */
-.navbar { background: white;}
+.navbar {background: url("../img/slide02.jpg") repeat; }
 .sidenav {background: white;}
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
     left: 250px;
     width: 0;
-    height: 100%;
+    height: 99%;
     margin-left: -250px;
-    overflow-y: auto;
-    background: #797979;
+    overflow-y: auto
+    background: #D1B88D;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    margin-top:0.1%;
 }
 .sidebar-nav {
     position: absolute;
@@ -747,7 +783,7 @@ _:-ms-input-placeholder, :root .demo-graph {
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: white;
+    color: #4a2b18;
 }
 
 .sidebar-nav li a:hover {
@@ -795,9 +831,14 @@ _:-ms-input-placeholder, :root .demo-graph {
 }
 .card-action--active{
   display: block;
+  border: 1px solid #d1b88d;
+  margin-bottom: 40px;
 }
 .card-subtitle{
-  color:grey; font-weight: bold;
+  color: black;
+font-weight: bold;
+font-size: 20px;
+text-align: center; padding: 20px 0px;
 }
 .list-specifier{
   display: block;
