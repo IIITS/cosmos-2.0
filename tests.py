@@ -12,7 +12,7 @@ def git_commit(directory):
 				git_commit(directory+"/"+x)
 	else:
 		os.system("git add %s" %(directory))
-		os.system("git commit -m \"Adding gp\"")
+		os.system("git commit -m \"Made changes\"")
 					
 fol = raw_input("Enter the location:")
 git_commit(fol)

@@ -1,0 +1,26 @@
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   cosmos/urls.pyc
+	modified:   cosmos/wsgi.pyc
+	modified:   db.sqlite3
+	modified:   gp/__init__.pyc
+	modified:   gp/admin.pyc
+	modified:   gp/forms.pyc
+	modified:   gp/methods.pyc
+	modified:   gp/migrations/0001_initial.pyc
+	modified:   gp/migrations/__init__.pyc
+	modified:   gp/models.pyc
+	modified:   gp/templates/home.html
+	modified:   gp/urls.pyc
+	modified:   gp/views.pyc
+	modified:   tests.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	status
+
+no changes added to commit (use "git add" and/or "git commit -a")
