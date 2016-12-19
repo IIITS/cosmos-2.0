@@ -158,6 +158,7 @@ a {
   width: auto;
   background-color: #f3f3f3;
   background: url('../images/slide02.jpg') repeat;
+  padding-top: 15vh;
   
 }
 
@@ -434,4 +435,94 @@ a {
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+#color1 {
+  background-color: violet;
+  opacity: 0.7; 
+}
+
+#color2 {
+  background-color: indigo;
+  opacity: 0.7;
+}
+
+#color3 {
+  background-color: blue; opacity: 0.7;
+}
+#color4{
+  background-color: green; opacity: 0.7;
+}
+#color5{
+  background-color: yellow; opacity: 0.7;
+}
+#color6{
+ background-color: orange; opacity: 0.7;
+}
+#color7{
+  background-color: red; opacity: 0.7;
+}
+
+.hexagon-wrapper {  
+  width:calc(100vw / 14 );
+  height: calc(100vw / 14);
+  text-align: center;
+  margin: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.hexagon {
+  height: 100%;
+  width: calc(100% * 0.57735);
+  display: inline-block;
+}
+
+.hexagon:before {
+  position: absolute;
+  top: 0;
+  right: calc((100% / 2) - ((100% * 0.57735) / 2));
+  background-color: inherit;
+  height: inherit;
+  width: inherit;
+  content: '';
+  transform: rotateZ(60deg);
+}
+
+.hexagon:after {
+  position: absolute;
+  top: 0;
+  right: calc((100% / 2) - ((100% * 0.57735) / 2));
+  background-color: inherit;
+  height: inherit;
+  width: inherit;
+  content: '';
+  transform: rotateZ(-60deg);
+}
+
+.protuded {
+color: #fff;
+font-weight: bold;
+font-family: Helvetica;
+text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+}
+.protuded-large{
+font-size: 9em;
+}
+.protuded-medium{
+font-size: 5em;
+}
+.protuded-small{
+
+font-size: 2em;
+}
+.protuded-xxsmall{
+
+font-size: 0.5em;
+}
+.a-separation{
+  width:99%;
+  height: 2%;
+  padding:20px;
+  opacity: 0;
 }
