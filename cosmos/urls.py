@@ -10,7 +10,7 @@ urlpatterns = [
 	url(r'^accounts/', include('accounts.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^btp/', include('btp.urls', namespace='btp')),
-    url(r'^btp/static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    url(r'^/static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 
     url(r'^issues-and-suggestions/', include('gp.urls')),
 
