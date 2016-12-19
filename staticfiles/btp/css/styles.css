@@ -1,4 +1,6 @@
-footer{padding: 7.5vh 10px;}
+footer{    padding: 7.5vh 10px;
+    background: url("../img/slide02.jpg") repeat;
+}
 body {
   margin: 0;
   background: url('../images/slide02.jpg') repeat;
@@ -255,12 +257,11 @@ text-transform: uppercase;
 
 .septem-link {
   text-decoration: none;
-  color: #660029 !important;
+  color: #024806 !important;
 }
 
 .septem-link:hover {
-    color: #660029 !important;
-    text-shadow:5px 2px 2px black;  
+    text-shadow:1px 2px 2px black;  
 }
 
 .septem-link .material-icons {
@@ -845,4 +846,82 @@ text-align: center; padding: 20px 0px;
 padding: 4px;
 border: 1px solid grey;
 border-radius: 0px;
+}
+
+/* I and S stylings */
+
+
+#upvotes{
+  margin-left:10px; 
+  margin-bottom: 10px;
+}
+#downvotes{
+  margin-left:10px;
+}
+.comp-desc{
+  font-family: "Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
+  font-size:20px;
+}
+.comp-name{
+  font-size: 20px;
+}
+.container{
+  background-color: #f1f1f1;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16);
+}
+
+li{
+  display: inline;
+}
+
+#about{
+  margin-top:20px;
+}
+.chip {
+display: inline-flex;
+height: auto;
+font-size: 12px;
+font-weight: 500;
+color: rgba(0,0,0,0.6);
+line-height: 32px;
+padding: 0px 7px;
+border-radius: 16px;
+background-color: #e4e4e4;
+}
+.tag-tip{
+-ms-transform: rotate(7deg);
+-webkit-transform: rotate(7deg);
+transform: rotate(-30deg);
+display: inline-block;
+height: 32px;
+font-size: 13px;
+font-weight: 500;
+color: rgba(0,0,0,0.6);
+line-height: 32px;
+padding: 30px 100px 2px 24px;
+border-radius: -9px;
+background-color: #e4e4e4;
+position: absolute;
+z-index: 2000;
+top: -33px;
+left: -35px;
+}
+.iandsnavigation{
+  position:fixed;
+  height:100vh;
+}
+.thumbs-up{
+
+}
+.mdl-layout__drawer{
+  position: fixed !important;
+}
+.mdl-layout__header{
+  position: fixed !important;
+}
+.solved{
+  display:none;
+}
+.show{
+  display:block;
 }
