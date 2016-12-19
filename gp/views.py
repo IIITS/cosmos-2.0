@@ -22,7 +22,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class HomeView(TemplateView):
-	template_name ='complaints.html'
+	template_name ='gp/complaints.html'
 	@method_decorator(login_required)
 	def dispatch(self,*args,**kwargs):
 		return super(HomeView,self).dispatch(*args,**kwargs)
@@ -41,7 +41,7 @@ class HomeView(TemplateView):
 	
 class PostComplaint(FormView):
 	form_class = PostComplaintForm
-	template_name = 'post_complaint.html'
+	template_name = 'gp/post_complaint.html'
 	success_url = settings.LOGIN_REDIRECT_URL
 	@method_decorator(login_required)
 	def dispatch(self,*args,**kwargs):
@@ -59,8 +59,8 @@ class PostComplaint(FormView):
 			description = form.cleaned_data['description'].encode('utf-8')
 			# form.cleaned_data['hostel'] returns empty string when checked domain is Academic or Mess
 			# when Hostel is checked, We have show it only to Girls group or only to boys group
-			resultSendIncharge = send_mail('Issue Registered in the portal with title \"' + title + '\"', description,'tremblerz@gmail.com', domain_obj.Incharge.split(','), fail_silently = False)
-			resultSendApplicant = send_mail('Your Issue with title \"' + title + '\"' + ' has been registered', "Thanks for expressing your inconvenience.\nYour issue has been registered on the website and email has been sent to faculty incharge\n\nThanks and Regards\nIT Support",'tremblerz@gmail.com', [self.request.user.email], fail_silently=False)
+			resultSendIncharge = send_mail('Issue Registered in the portal with title \"' + title + '\"', description,'webmaster@iiits.in', domain_obj.Incharge.split(','), fail_silently = False)
+			resultSendApplicant = send_mail('Your Issue with title \"' + title + '\"' + ' has been registered', "Thanks for expressing your inconvenience.\nYour issue has been registered on the website and email has been sent to faculty incharge\n\nThanks and Regards\nIT Support",'webmaster@iiits.in', [self.request.user.email], fail_silently=False)
 			#TODO: Check the return values from send_mail
 			c = Complaint(title=title,description=description,domain=domain_obj,posted_by = self.request.user)
 			c.save()
@@ -77,7 +77,7 @@ class PostComplaint(FormView):
 
 
 class ViewComplaintByDomain(FormView):
-	template_name = 'complaints.html'
+	template_name = 'gp/complaints.html'
 	form_class = Email_Form
 	@method_decorator(login_required)
 	def dispatch(self,*args,**kwargs):
