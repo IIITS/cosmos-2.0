@@ -61,7 +61,7 @@ ROOT_URLCONF = 'cosmos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates','/var/www/cosmosenv/cosmos/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
