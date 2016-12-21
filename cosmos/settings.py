@@ -124,14 +124,15 @@ USE_L10N = True
 USE_TZ = True
 
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticfiles'),
-)
+
 
 SERVE_MEDIA = True
 STATIC_URL = '/static/'
-
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+	os.path.join(BASE_DIR, 'static'),
+	#'/var/www/cosmosenv/cosmos/staticfiles'
+)
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL ='/accounts/login/'
 LOGOUT_URL = LOGIN_REDIRECT_URL
