@@ -61,7 +61,7 @@ ROOT_URLCONF = 'cosmos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates','/var/www/cosmosenv/cosmos/templates'],
+        'DIRS': [os.path.join(BASE_DIR,'templates'),'/var/www/cosmosenv/cosmos/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,6 +126,7 @@ USE_TZ = True
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
+    '/var/www/cosmosenv/cosmos/staticfiles/'
 )
 
 SERVE_MEDIA = True

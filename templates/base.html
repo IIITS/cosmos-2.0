@@ -26,7 +26,7 @@
 {% block nav %}
   {% include 'base/nav.html' %}
 {% endblock %}
-<div class="container-fluid" style="min-height:80vh;">
+<div class="container-fluid" style="min-height:90vh;">
   {% block sidenav %}
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
       {% include 'btp/sidenav.html' %}
@@ -35,7 +35,9 @@
   
   {% block main %}
     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding-top:25px;">
+      {% block maincontent %}
       {% include 'btp/main.html' %}
+      {% endblock %}
     </div>    
   {% endblock %}
 

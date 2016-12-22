@@ -1,7 +1,11 @@
 {% extends 'base.html'%}
 {% load staticfiles %}
-
+{% block sidenav %}
+		{% include 'gp/sidenav.html' %}
+	{% endblock %}
 {% block main %}
+	
+	{% block maincontent %}	
 	<div style="margin-left:30%; margin-top:15%;"> 
 	<span class="mdl-layout-title">Trending Issues</span>
 	{% for x in posts%}
@@ -105,4 +109,4 @@
   
 </script>
 {% endblock %}	
-
+{% endblock %}
