@@ -52,7 +52,7 @@ class Project(models.Model):
 		print st
 		for i in range(len(st)):
 			s = st[i]
-			stud = Student.objects.get(user__username=str(s))
+			stud = User.objects.get(username=str(s))
 			students.append(stud)
 		return students
 	def files_are_uploaded(self):
