@@ -105,7 +105,7 @@ box-shadow: 1px 1px 3px;
                <td>
                   {% for s in x.get_students %}
                   <span class="mdl-chip cosmos-small-chip mdl-color--blue">
-                  <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
+                  <span class="mdl-chip__text">{{ s.get_full_name }}</span>
                   </span>
                   {% empty %}
                   This project is not taken by any students yet.<br>
@@ -141,7 +141,7 @@ box-shadow: 1px 1px 3px;
                <td>
                   {% for s in x.get_students %}
                   <span class="mdl-chip cosmos-small-chip mdl-color--blue">
-                  <span class="mdl-chip__text">{{ s.user.get_full_name }}</span>
+                  <span class="mdl-chip__text">{{ s.get_full_name }}</span>
                   </span>
                   {% empty %}
                   This project is not taken by any students yet.<br>
