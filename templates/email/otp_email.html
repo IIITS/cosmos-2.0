@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{{title}}</title>
+  <link href="{% static 'index/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+  .email-mast{min-height: 50px; background: indigo; color: white; padding:15px;}
+  .footer{ background: indigo; padding:15px; color: white;}
+  .email-body{padding: 10px 20px; margin-bottom: 20px; margin-top: 20px;
+  }
+  .instructions{
+    padding: 10vh 5vw;
+  }
+  </style>
+</head>
+<body>
+  <div class="container-fluid email-mast">
+    <center><h5>Hi {{name}},</h5></center>
+  </div>
+  <div class="container email-body">
+    <p>You have requested for a password reset. The OTP is - {{otp}}</p>
+  </div>
+  <center>Disclaimer: This is an auto-generated email. Please do not reply back to this email. In case you face any trouble signing in, send an email to <i class="text-info">btpc@iiits.in</i> or <i class="text-info">sahal.k13@iiits.in</i></center>
+  <div class="container-fluid footer">
+    <center>If you have any suggestions / feedback for cosmos, please feel free to send an email to btpc@iiits.in or sahal.k13@iiits.in</center>
+  </div>
+</body>
+</html>
