@@ -56,22 +56,38 @@ class NewPasswordView(FormView):
     success_url = settings.LOGIN_REDIRECT_URL
     
     def form_valid(self,form):
+        
         pass1 = form.cleaned_data['password']
         pass2 = form.cleaned_data['password_again']
+        
         if pass1 == pass2:
-            print "password changed"
+            form.save()
             return HttpResponseRedirect('/')
         return super(NewPasswordView,self).form_valid(form)
 
     def form_invalid(self,form):
-        return render(self.request, self.template_name, {'form': form, 'form_error':'Sorry, username or password incorrect!' } )
+        
+        return render(self.request, self.template_name, {'form': form, 'form_error':'Sorry, There was an error. Choose a password of length 8 or more' } )
     
     def get_context_data(self,**kwargs):    
+        
         context = super(NewPasswordView,self).get_context_data(**kwargs)
         context = {'title':'Login - Septem',
                'form':NewPasswordForm(self.request.POST)  
         }
-        return context        
+        return context
+
+    def dispatch(self, *args, **kwargs):
+        
+        email = self.kwargs['user_email']
+        otp = self.kwargs['otp']
+
+        try:
+            pr_otp = PasswordResetOTPLogs.objects.get(otp=otp, user_email=email, expired=False)
+            return super(NewPasswordView,self).dispatch(*args,**kwargs)
+
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect('/accounts/send-otp/lost-password/')    
 
 
 @sensitive_post_parameters()
@@ -125,8 +141,12 @@ class SendOtpView(FormView):
         return render(self.request, self.template_name, {'form': form, 'form_error':'Looks like you are not on cosmos!' } )
     
     def form_valid(self, form):
+            otp = createOTP()
+            email = form.cleaned_data['email']
             try:
-                user = User.objects.get(email=form.cleaned_data['email'])
+                p = PasswordResetOTPLogs(otp = otp ,user_email=email)
+                p.save()
+                user = User.objects.get(email=email)
                 name = user.get_full_name()
                 subject = "[Cosmos@IIITS] Password Reset - One Time Password"
                 to = [user.email]
@@ -134,7 +154,7 @@ class SendOtpView(FormView):
                 from_email = '[do-not-reply] Cosmos support <no-reply@cosmos.iiits.in>'
                 ctx = {
                     'title':'[Cosmos] Password Reset - OTP',
-                    'otp':createOTP(),
+                    'otp':otp,
                     "name":name
                 }
 
@@ -158,26 +178,13 @@ class VerifyOtpView(FormView):
     
     def form_valid(self, form):
             try:
+                email = self.kwargs['user_email']
                 otp = form.cleaned_data['otp']
-                
-                subject = "[Cosmos@IIITS] Password Reset - One Time Password"
-                to = [user_email]
-                bcc = ["sahalsajjad@gmail.com"]
-                from_email = '[do-not-reply] Cosmos support <no-reply@cosmos.iiits.in>'
-                ctx = {
-                    'title':'[Cosmos] Password Reset - OTP',
-                    'otp':otp,
-                    "name":name
-                }
-
-                message = get_template('email/otp_email.html').render(Context(ctx))
-                msg = EmailMessage(subject, message, to=to, from_email=from_email, bcc=bcc)
-                msg.content_subtype = 'html'
-                msg.send()
-                return HttpResponseRedirect(settings.LOGIN_URL)    
+                pr_otp = PasswordResetOTPLogs.objects.get(otp=otp,user_email=email)
+                return HttpResponseRedirect('/acounts/new-password/?user_email=%s&otp=%s'%(email,otp))    
 
             except ObjectDoesNotExist:   
-                return render(self.request, self.template_name, {'form': form, 'form_error':'The email you entered is not associated with any account on cosmos!'})
+                return render(self.request, self.template_name, {'form': form, 'form_error':'OTP entered is incorrect. Please check your email and try again' })
             
     def form_invalid(self,form):
         return render(self.request, self.template_name, {'form': form, 'form_error':'OTP entered is incorrect. Please check your email' } )
