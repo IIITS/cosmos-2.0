@@ -55,9 +55,10 @@ class Project(models.Model):
 			s = st[i]
 			try:
 				stud = User.objects.get(username=str(s))
+				students.append(stud)
 			except ObjectDoesNotExist:
 				print s
-			students.append(stud)
+			
 		return students
 	def files_are_uploaded(self):
 		if ProjectMedia.objects.filter(project=self).count():
