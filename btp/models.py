@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from btp import choices, values
 import datetime
+from django.core.exceptions import ObjectDoesNotExist
 
 def content_file_name(instance, filename):
     return '/'.join(['evaluation/submissions', str(instance.projectgroup.project.code)+'_Report_'+str(instance.week.week.weekno)+"."+str(filename.split('.')[-1])])
@@ -52,7 +53,10 @@ class Project(models.Model):
 		print st
 		for i in range(len(st)):
 			s = st[i]
-			stud = User.objects.get(username=str(s))
+			try:
+				stud = User.objects.get(username=str(s))
+			except ObjectDoesNotExist:
+				print s
 			students.append(stud)
 		return students
 	def files_are_uploaded(self):
