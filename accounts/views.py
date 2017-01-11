@@ -7,7 +7,6 @@ from btp.methods import *
 from accounts.forms import *
 from accounts.models import *
 from accounts.methods import *
-
 from django.core.exceptions import *
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
@@ -24,7 +23,6 @@ from django.template.response import TemplateResponse
 from django.core.mail import send_mail
 import json
 from django.contrib.auth.models import User
-
 
 class LoginView(FormView):
 	template_name = 'accounts/login.html'
@@ -52,9 +50,11 @@ class LoginView(FormView):
 		return context
 
 class NewPasswordView(FormView):
+    
     template_name = 'accounts/login.html'
     form_class = NewPasswordForm
     success_url = settings.LOGIN_REDIRECT_URL
+    
     def form_valid(self,form):
         pass1 = form.cleaned_data['password']
         pass2 = form.cleaned_data['password_again']
@@ -62,8 +62,10 @@ class NewPasswordView(FormView):
             print "password changed"
             return HttpResponseRedirect('/')
         return super(NewPasswordView,self).form_valid(form)
+
     def form_invalid(self,form):
         return render(self.request, self.template_name, {'form': form, 'form_error':'Sorry, username or password incorrect!' } )
+    
     def get_context_data(self,**kwargs):    
         context = super(NewPasswordView,self).get_context_data(**kwargs)
         context = {'title':'Login - Septem',
@@ -106,8 +108,10 @@ def logout_view(request):
 	return HttpResponseRedirect(settings.LOGIN_URL)
 
 class UnderConstruction(TemplateView):
-	template_name = 'index/underconstruction.html'
-	def dispatch(self, *args, **kwargs):
+	
+    template_name = 'index/underconstruction.html'
+
+    def dispatch(self, *args, **kwargs):
 		return super(UnderConstruction,self).dispatch(*args, **kwargs)
 
 class SendOtpView(FormView):
@@ -149,6 +153,9 @@ class VerifyOtpView(FormView):
     form_class = OTPForm
     success_url = '/accounts/new-password/'
     
+    def get_context_data(self,**kwargs):
+        return {'email':self.kwargs['user_email'], 'form':OTPForm()}     
+    
     def form_valid(self, form):
             try:
                 otp = form.cleaned_data['otp']
@@ -175,5 +182,4 @@ class VerifyOtpView(FormView):
     def form_invalid(self,form):
         return render(self.request, self.template_name, {'form': form, 'form_error':'OTP entered is incorrect. Please check your email' } )
     
-    def get_context_data(self,**kwargs):
-        return {'email':self.kwargs['user_email']}           
+          
