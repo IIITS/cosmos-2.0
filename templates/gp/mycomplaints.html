@@ -1,7 +1,15 @@
-{% extends 'home.html'%}
+{% extends 'base.html'%}
 {% load staticfiles %}
 
-<span class="mdl-layout-title">Complaints</span>
+{% block sidenav %}
+                {% include 'gp/sidenav.html' %}
+        {% endblock %}
+{% block main %}
+
+{% block maincontent %}
+        <div style="margin-left:20%; margin-top:2%;">
+	<span class="mdl-layout-title">Complaints by Me</span>
+	</div>
 	{% for x in mycomplaints%}
 	<center>
 	<div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:550px;margin-top:10px;">
@@ -27,3 +35,5 @@
 </center>
 <br>
 {% endfor %}
+{% endblock %}
+{% endblock %}

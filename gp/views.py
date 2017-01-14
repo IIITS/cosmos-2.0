@@ -59,8 +59,8 @@ class PostComplaint(FormView):
 			description = form.cleaned_data['description'].encode('utf-8')
 			# form.cleaned_data['hostel'] returns empty string when checked domain is Academic or Mess
 			# when Hostel is checked, We have show it only to Girls group or only to boys group
-			resultSendIncharge = send_mail('Issue Registered in the portal with title \"' + title + '\"', description,'webmaster@iiits.in', domain_obj.Incharge.split(','), fail_silently = False)
-			resultSendApplicant = send_mail('Your Issue with title \"' + title + '\"' + ' has been registered', "Thanks for expressing your inconvenience.\nYour issue has been registered on the website and email has been sent to faculty incharge\n\nThanks and Regards\nIT Support",'webmaster@iiits.in', [self.request.user.email], fail_silently=False)
+			resultSendIncharge = send_mail('Issue Registered in the portal with title \"' + title + '\"', description,'webmaster@iiits.in', domain_obj.Incharge.split(','), fail_silently = False, auth_user='issues.suggestions@gmail.com', auth_password='SEs=8gWh@b~:m&{m')
+			resultSendApplicant = send_mail('Your Issue with title \"' + title + '\"' + ' has been registered', "Thanks for expressing your inconvenience.\nYour issue has been registered on the website and email has been sent to faculty incharge\n\nThanks and Regards\nIT Support",'webmaster@iiits.in', [self.request.user.email], fail_silently=False, auth_user='issues.suggestions@gmail.com', auth_password='SEs=8gWh@b~:m&{m')
 			#TODO: Check the return values from send_mail
 			c = Complaint(title=title,description=description,domain=domain_obj,posted_by = self.request.user)
 			c.save()
@@ -109,7 +109,7 @@ class ViewComplaintByDomain(FormView):
 		return self.render_to_response(self.get_context_data(form=form))
 
 class viewMyComplaints(TemplateView):
-	template_name = 'complaints.html'
+	template_name = 'gp/mycomplaints.html'
 	@method_decorator(login_required)
 	def dispatch(self,*args,**kwargs):
 		return super(viewMyComplaints,self).dispatch(*args,**kwargs)
