@@ -1,0 +1,71 @@
+{% extends 'mess_base.html' %}
+{% block navbar %}
+{% include 'non_home_nav.html'%}
+{% endblock %}
+{%block iconspan%}
+
+{%endblock%}
+{% block main %}
+	<div class="container-fluid content-wrapper">
+		<div class="feasta-content">
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<h3>My Profile</h3>
+					{% ifequal user_type 'STUDENT' %}
+						<table class="table table-borderless">
+							<tr>
+								<td>Breakfasts unregistered</td>
+								
+								<td><span class="text-success"><b>{{NUM_BF_NOT_EATEN}}</b></span></td>
+							</tr>
+							<tr>
+								<td>Lunch unregistered</td>
+								
+								<td><span class="text-success"><b>{{NUM_LUNCH_NOT_EATEN}}</b></span></td>
+							</tr>
+							<tr>
+								<td>Dinners unregistered</td>
+								
+								<td><span class="text-success"><b>{{NUM_DINNER_NOT_EATEN}}</b></span></td>
+							</tr>	
+						</table>
+					{% endifequal %}	
+				</div>
+				<div class="col-lg-offset-2 col-md-offset-2 col-sm-6 col-xs-6">
+					<br><h4>Days Unregistered this Semester</h4>
+					<div class="results-pag">
+							{% for x in TOTAL_UNREGISTERED %}
+								<p><span class="text-box">{{x.date}}</span>&nbsp;&nbsp;
+								<span class="text-box-follow">{{x.meal}}</span></p>
+							{% empty %}
+								<p class="text-success">You've not unregistered for any meal yet</p>
+							{%endfor%}
+					</div>
+					<div class="pag">
+						<ul class="pagination">
+							{% if TOTAL_UNREGISTERED.has_previous %}
+						    <li>
+      							<a href="?page={{ TOTAL_UNREGISTERED.previous_page_number }}" aria-label="Previous">
+        							<i class="fa fa-hand-o-left"></i>
+					        	</a>
+    						</li>
+    						{% endif %}
+    						<li>
+    						<span class="current">
+        			    		Page {{ TOTAL_UNREGISTERED.number }} of {{ TOTAL_UNREGISTERED.paginator.num_pages }}.
+        					</span>
+        					</li>
+        					{% if TOTAL_UNREGISTERED.has_next %}
+    						<li>
+    			  				<a href="?page={{ TOTAL_UNREGISTERED.next_page_number }}" aria-label="Next">
+    							    <i class="fa fa-hand-o-right"></i>
+    							</a>
+    						</li>
+    						{% endif %}
+		  				</ul>
+		  			</div>	
+				</div>	
+			</div>	
+		</div>
+	</div>
+{% endblock %}

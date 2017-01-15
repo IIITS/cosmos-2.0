@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{%block iconspan %}
+{% endblock %}
+{% block statistics %}
+<div class="container-fluid feasta-stats">
+	<center><h3 style="color:#7C603B;">Please Login here.</h3></center>
+	<center class="row feasta-mar">
+		<form class="form-horizontal" method="post">
+			{% csrf_token %}
+			<div class="feasta-center">{{form.username}}</div>
+			<div class="feasta-center">{{form.password}}</div>
+			<div><input type="submit" class="feasta-abs" value="Login"></div>
+		</form>
+	</center>
+</div>				
+{% endblock %}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	{% include 'resources.html'	%}
+	<body>
+		{%block topfold %}
+		<div class="container-fluid topfold">
+			{% block iconspan %}
+				<div id="show-user-settings" class="icon-span">
+					<span style="font-size:20px;">{{user.get_full_name}}</span>&nbsp;&nbsp;<a><i class="fa fa-2x fa-navicon"></i>
+					</a>
+				</div>
+				<div id="user-settings-burger" class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
+						<ul>
+							<li><a href="/accounts/edit-profile/"><i class="fa fa-wrench"></i> Edit Profile</a></li>
+							<li><a href="/accounts/change-password/"><i class="fa fa-credit-card-alt"></i> Change Password</a></li>
+							<li><a href="/accounts/signout/"><i class="fa fa-lock"></i> Logout</a></li>
+						</ul>
+				</div>
+			{% endblock %}	
+			<center class="header-logo">Feasta</center>
+			<center class="header-logo-sub">Mess Portal @ IIITS</center>
+		</div>
+		{% endblock %}
+		{% block navbar %}
+		<div class="container-fluid feasta-navbar">
+			<center>
+				<ul>
+					<li>
+						<a href="feasta/">Home</a>
+					</li>
+					<li>
+						<a href="feasta/accounts/profile">My Account</a>
+					</li>
+					<li>
+						<a href="feasta/menu/">View Menu</a>
+					</li>
+					
+					<li>
+						<a href="feasta/mark/absent/">Mark Absent</a>
+					</li>
+					<li><a href="feasta/add/guest/">Add A Guest</a></li>
+				</ul>
+			</center>	
+		</div>
+		{% endblock %}
+		{% block main %}
+		{% endblock %}
+		{% block statistics %}
+		<div class="container-fluid feasta-stats">
+			<center class="row feasta-mar">
+				<div class="stats col-lg-1 col-sm-1 col-xs-1 col-md-1">
+					<i class="fa fa-4x fa-bed"></i>
+					<div>
+						<a>BREAKFAST TODAY</a>
+					</div>	
+				</div>	
+				<div class="col-lg-1 col-sm-1 col-xs-1 col-md-1 figure">
+						<div>400</div>
+						<span class="small-text">USERS</span>
+				</div>
+				<div class="stats col-lg-1 col-sm-1 col-xs-1 col-md-1">
+					<i class="fa fa-4x fa-hourglass-half"></i>
+					<div>
+						<a>LUNCH TODAY</a>
+					</div>	
+				</div>	
+				<div class="col-lg-1 col-sm-1 col-xs-1 col-md-1 figure">
+						<div>400</div>
+						<span class="small-text">USERS</span>
+				</div>
+				<div class="stats col-lg-1 col-sm-1 col-xs-1 col-md-1">
+					<i class="fa fa-4x fa-adjust"></i>
+					<div>
+						<a>DINNER TODAY</a>
+					</div>	
+				</div>	
+				<div class="col-lg-1 col-sm-1 col-xs-1 col-md-1 figure">
+						<div>400</div>
+						<span class="small-text">USERS</span>
+				</div>
+			
+				<center class="stats col-lg-1 col-sm-1 col-xs-1 col-md-1">
+					<i class="fa fa-4x fa-shopping-basket"></i>
+					<div>
+						UNREGISTERED
+					</div>
+					<div>
+						MEALS THIS
+					</div>
+					<div>
+					    SEMESTER
+					</div>
+				</center>	
+				<div class="col-lg-1 col-sm-1 col-xs-1 col-md-1 figure">
+						1450
+				</div>	
+					
+			</center>	
+				
+		</div>
+		{% endblock %}
+		{% block extra %}
+			<div class="container-fluid feasta-container">
+				<center>
+					<span class="feasta-announce">Staying for summer?</span>
+					<a href="feasta/register/summer/">
+						<button class="feasta-btn feasta-btn-announce">Register Here</button>
+					</a>	
+				</center>
+			</div>
+		{% endblock %}
+		{% block footer %}
+		 	<center class="footer"><span class="footer-name">Developed by&nbsp;&nbsp;</span> Sahal Sajjad&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bhavana Tangirala</center>
+		{% endblock %}
+	</body>
+</html>

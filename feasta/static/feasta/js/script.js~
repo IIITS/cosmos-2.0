@@ -1,0 +1,11 @@
+$(document).ready(function(){
+	$('#user-settings-burger').hide();
+	$('#show-user-settings').click(function(){
+		$('#user-settings-burger').toggle();		
+	});
+	$('body').click(function(){
+		$('#user-settings-burger').hide();
+	});
+});
+
+

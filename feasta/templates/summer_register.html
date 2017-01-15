@@ -1,0 +1,48 @@
+{% extends 'mess_base.html' %}
+{% block navbar %}
+{% include 'non_home_nav.html'%}
+{% endblock %}
+{%block iconspan%}
+
+{%endblock%}
+{% block main %}
+	<script type="text/javascript">
+
+	var disabledDays = {{disabled_days|safe}};
+
+	function setDisabled(date) {
+		var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+		for (i = 0; i < disabledDays.length; i++) {
+			if($.inArray((m+1) + "-"+ d + "-" + y,disabledDays) != -1 || new Date() > date) {
+				return [false];
+			}
+		}
+		return [true];
+	}
+	function checkIfDisable(date) {
+		return setDisabled(date) ;
+	}
+
+    $(function() {
+      $("#dates").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: 0,
+        maxDate: '+{{session_end_days}}D',
+       	beforeShowDay:checkIfDisable
+      });
+    });
+  </script>
+	<div class="container-fluid content-wrapper">
+		<div class="feasta-content">
+			<h3>Staying for summer? Pick dates and Register for meals</h3>
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">	
+					<div id="dates">
+						
+					</div>
+				</div>
+			</div>
+					
+		</div>
+	</div>
+{% endblock %}
