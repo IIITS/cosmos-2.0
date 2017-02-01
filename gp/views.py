@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
-from gp.models import Complaint, Domain, Upvote
+from gp.models import Complaint, Domain, Upvote, Suggestion
 from gp.forms import *
 from django.utils import timezone
 from django.conf import settings
@@ -18,7 +18,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from methods import Is_incharge
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.core import serializers
 
 
 class HomeView(TemplateView):
@@ -149,7 +149,8 @@ def submitSuggestion(request):
 	 user = request.user
 	 try:
 		 issue = Complaint.objects.get(id=request.GET.get('ID'))
-		 submission = Submission(
+		 print(issue)
+		 submission = Suggestion(
 	 		complaint=issue,
 	 		author=user,
 	 		suggestion=request.GET.get('suggestion')
@@ -158,11 +159,12 @@ def submitSuggestion(request):
 	 except ObjectDoesNotExist as Error:
 	 	return HttpResponse("500")
 	 except KeyError as Error:
-	 	return HttpResponse("500")
+	 	return HttpResponse("400")
 	 return HttpResponse("200")
 
 def homeRedirect(request):
 	return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
+
 @login_required
 def getSuggestions(request):
 	user = request.user
@@ -171,8 +173,10 @@ def getSuggestions(request):
 	end =  int(request.GET['end'])
 	complaint = Complaint.objects.get(id=cid)
 	try:
-		suggestions = Suggestion.objects.filter(complaint=complaint)[begin:end].value_list()
+		suggestions = Suggestion.objects.filter(complaint=complaint)[begin:end]#.value_list()
 	except IndexError as Error:
-		suggestions = Suggestions.objects.filter(complaint=complaint)[begin:].value_list()	
+		suggestions = Suggestions.objects.filter(complaint=complaint)[begin:]#.value_list()
+
+	suggestions = serializers.serialize('json', suggestions)
 	return HttpResponse(suggestions)
 
