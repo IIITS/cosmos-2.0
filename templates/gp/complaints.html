@@ -31,10 +31,10 @@
 		</div>
 		<div class="mdl-card__actions mdl-card--border">
 			{% ifequal x.upvoted False %}
-				<a id="upvote-{{x.issue.id}}"  class="thumbs-up not-upvoted" onclick="upvote({{x.issue.id}})">
+				<a id="upvote-{{x.issue.id}}"  class="thumbs-up not-upvoted" onclick="upvote({{x.issue.id}}, 'not-upvoted')">
 			{%endifequal %}
 			{% ifequal x.upvoted True %}
-				<a id="upvote-{{x.issue.id}}"  class="thumbs-up upvoted" onclick="upvote({{x.issue.id}})">
+				<a id="upvote-{{x.issue.id}}"  class="thumbs-up upvoted" onclick="upvote({{x.issue.id}}, 'upvoted')">
 			{%endifequal %}	
 				{% ifequal x.upvoted False %}
     				<i id="upvote-symbol-o-{{x.issue.id}}" class="fa fa-thumbs-o-up"></i>
@@ -149,8 +149,28 @@
 	    });
 	}
 
-	function upvote(id) {
-						
+	function upvote(id, status) {
+		console.log("Upvoting");
+		$.ajax({
+	    	url: 'upvote/complaint/',
+	    	type: 'GET',
+	    	data: {
+	        	ID: id,
+	        	status: "temp " + status,
+	        	csrfmiddlewaretoken: '{{csrf_token}}',
+	      	},
+	    })
+	    .done(function(result) {
+	    	console.log(result);
+	    	$('#upvote-container-' + id).html(result.split(',')[1])
+	    })
+	    .fail(function(result) {
+	    	//willstop = 1
+	    	console.log("error");
+	    })
+	    .always(function(result) {
+	    	//console.log(result);
+	    });				
 	}
 
 	function fill_modal(result) {
