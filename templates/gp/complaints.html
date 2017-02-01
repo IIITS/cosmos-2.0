@@ -100,6 +100,39 @@
 	      dialog.close();
 	    });
 	}
+
+	function upvote(id) {
+						
+	}
+
+	function loadSuggestions(id) {
+		console.log("loading suggestions")
+	    $.ajax({
+	    	url: 'get/suggestion/',
+	    	type: 'GET',
+	    	data: {
+	        	cid: id,
+			begin: 0,
+			end: 5,
+	        	csrfmiddlewaretoken: '{{csrf_token}}',
+	      	},
+	    })
+	    .done(function(result) {
+	    	console.log(result)
+	    })
+	    .fail(function() {
+	    	//willstop = 1
+	    	//console.log("error");
+	    })
+	    .always(function() {
+	    	//console.log("complete");
+	    });
+	}
+
+	function submitSuggestion(id) {
+
+	}
+
 	function disableAssignAndShowSolved(CID){
 	  assignButtonId = "#showModal-"+CID;
 	  closeButton = "#issue-close-"+CID;
