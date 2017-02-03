@@ -1,0 +1,154 @@
+<html>
+	<title>Book Room</title>
+	<style type="text/css">
+		table a:link {
+			font-weight: bold;
+			text-decoration:none;
+		}
+		table a:visited {
+			font-weight:bold;
+			text-decoration:none;
+		}
+		table a:active,
+		table a:hover {
+			text-decoration:underline;
+		}
+		table {
+			font-family:Arial, Helvetica, sans-serif;
+			font-size:12px;
+			text-shadow: 1px 1px 0px #fff;
+			background:#eaebec;
+			margin:20px;
+			border:#ccc 1px solid;
+
+			-moz-border-radius:3px;
+			-webkit-border-radius:3px;
+			border-radius:3px;
+
+			-moz-box-shadow: 0 1px 2px #d1d1d1;
+			-webkit-box-shadow: 0 1px 2px #d1d1d1;
+			box-shadow: 0 1px 2px #d1d1d1;
+		}
+		table th {
+			padding:21px 25px 22px 25px;
+			border-top:1px solid #fafafa;
+			border-bottom:1px solid #e0e0e0;
+
+			background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+			background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+		}
+		table th:first-child {
+			text-align: left;
+			padding-left:20px;
+		}
+		table tr:first-child th:first-child {
+			-moz-border-radius-topleft:3px;
+			-webkit-border-top-left-radius:3px;
+			border-top-left-radius:3px;
+		}
+		table tr:first-child th:last-child {
+			-moz-border-radius-topright:3px;
+			-webkit-border-top-right-radius:3px;
+			border-top-right-radius:3px;
+		}
+		table tr {
+			text-align: center;
+			padding-left:20px;
+		}
+		table td:first-child {
+			text-align: left;
+			padding-left:20px;
+			border-left: 0;
+		}
+		table td {
+			padding:18px;
+			border-top: 1px solid #ffffff;
+			border-bottom:1px solid #e0e0e0;
+			border-left: 1px solid #e0e0e0;
+
+			/*background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+			background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);*/
+		}
+		table tr.even td {
+			background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+			background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+		}
+		table tr:last-child td {
+			border-bottom:0;
+		}
+		table tr:last-child td:first-child {
+			-moz-border-radius-bottomleft:3px;
+			-webkit-border-bottom-left-radius:3px;
+			border-bottom-left-radius:3px;
+		}
+		table tr:last-child td:last-child {
+			-moz-border-radius-bottomright:3px;
+			-webkit-border-bottom-right-radius:3px;
+			border-bottom-right-radius:3px;
+		}
+		table tr:hover td {
+			background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+			background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+		}
+		.button {
+		  display: inline-block;
+		  padding: 15px 25px;
+		  font-size: 24px;
+		  cursor: pointer;
+		  text-align: center;
+		  text-decoration: none;
+		  outline: none;
+		  color: #fff;
+		  background-color: #4CAF50;
+		  border: none;
+		  border-radius: 15px;
+		  box-shadow: 0 9px #999;
+		}
+
+		.button:hover {background-color: #3e8e41}
+
+		.button:active {
+		  background-color: #3e8e41;
+		  box-shadow: 0 5px #666;
+		  transform: translateY(4px);
+		}
+	</style>
+	<body>
+		<table align="center" width = "800px" cellspacing='0'> <!-- cellspacing='0' is important, must stay -->
+
+		<!-- Table Header -->
+		<thead>
+			<tr>
+				<th>Time Slots</th>
+				<th>Book Room</th>
+			</tr>
+		</thead>
+		<!-- Table Header -->
+
+		<!-- Table Body -->
+		<!-- <h3>{{booked_room}}</h3> -->	
+		<tbody>
+		{%for time in time_slots%}	
+			{% if time.start_time not in booked_room %}
+				<tr bgcolor="#C2F95B">
+					<td><b>{{time.start_time}} - {{time.finish_time}}</b></td>
+					<td><a href = "/polls/{{room.id}}/{{room.room_no}}/{{date_of_booking}}/{{time.start_time}}"><button class="button"> Book</button></a></td>
+				</tr><!-- Table Row -->
+			{% else %}
+				<tr bgcolor="#FB2F03">
+					<td><b>{{time.start_time}} - {{time.finish_time}}</b></td>
+					<td><a href = "/polls/{{room.id}}/{{room.room_no}}/{{date_of_booking}}/{{time.start_time}}"><button class="button" disabled> Book</button></a></td>
+				</tr>
+			{% endif %}
+			<!-- {% if not booked_room %}
+				<tr bgcolor = "C2F95B">
+					<td><b>{{time.start_time}} - {{time.finish_time}}</b></td>
+					<td><a href = "/polls/{{room.id}}/{{room.room_no}}/{{date_of_booking}}/{{time.id}}"><button class="button"> Book</button></a></td>
+				</tr>		
+			{% endif %} -->
+		{% endfor %}
+		</tbody>
+		<!-- Table Body -->
+
+		</table>
+	</body>
