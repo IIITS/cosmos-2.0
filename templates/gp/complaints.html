@@ -175,14 +175,14 @@
 
 	function fill_modal(result) {
 		result = JSON.parse(result);
-		result = result.slice(1);
+		//result = result.slice(1);
 		var body_text = ""
 		for (var i = 0; i < result.length; i++) {
 			console.log("Author ID: " + result[i].fields.author + " -> " + result[i].fields.suggestion);
 			body_text += "<p> Author ID: " + result[i].fields.author + " -> " + result[i].fields.suggestion + "</p>";
 		}
 		$('.modal-body').html(body_text);
-		//console.log(result);
+		console.log(body_text);
 	}
 
 	function loadSuggestions(id) {
@@ -198,6 +198,7 @@
 	      	},
 	    })
 	    .done(function(result) {
+		console.log(result);
 	    	fill_modal(result);
 	    	$('#myModal').modal('show');
 	    })
