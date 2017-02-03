@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Book Room</title>
+	<meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	  <link rel="stylesheet" href="/resources/demos/style.css">
+	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <script>
+	  $( function() {
+	    var eventDates = {};
+	    var currentDate;
+	    $( "#datepicker" ).datepicker({ minDate: 0, maxDate: "+10D" ,inline: true, firstDay: 1, showOtherMonths: true,dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],dateFormat: 'yy-mm-dd',
+	    onSelect: function(dateText, inst) {
+	        currentDate = dateText;
+	        window.location.href = './'+dateText;
+	       
+	    },
+	    beforeShowDay: function(currentDate){
+	      var highlight = eventDates[currentDate];
+	      if( highlight ) {
+	        return [true, "event", highlight];
+	      } else {
+	        return [true, '', ''];
+	      }
+	    }
+	  });
+	  });
+	  </script>
+	    <style type="text/css">
+	      .ui-datepicker,
+	      .ui-datepicker table,
+	      .ui-datepicker tr,
+	      .ui-datepicker td,
+	      .ui-datepicker th {
+	        margin: 0;
+	        padding: .2em .2em 0;
+	        border: none;
+	        border-spacing: 0;
+	        width : 1000px;
+	        font-size: 100%;
+	      }
+	      .ui-datepicker {
+	        display: none;
+	        
+	        padding: 35px;
+	        cursor: default;
+	        text-transform: uppercase;
+	        font-family: Tahoma;
+	        font-size: 100%;
+	        background: #141517;
+	        -webkit-border-radius: 3px;
+	        -moz-border-radius: 3px;
+	        border-radius: 3px;
+	        -webkit-box-shadow: 0px 1px 1px rgba(255,255,255, .1), inset 0px 1px 1px rgb(0,0,0);
+	        -moz-box-shadow: 0px 1px 1px rgba(255,255,255, .1), inset 0px 1px 1px rgb(0,0,0);
+	        box-shadow: 0px 1px 1px rgba(255,255,255, .1), inset 0px 1px 1px rgb(0,0,0);
+	      }
+	      .ui-datepicker-header {
+	        position: relative;
+	        padding-bottom: 10px;
+	        border-bottom: 1px solid #d6d6d6;
+	      }
+	      .ui-datepicker-title { text-align: center; }
+	      .ui-datepicker-month {
+	        position: relative;
+	        padding-right: 15px;
+	        color: #565656;
+	      }
+	      .ui-datepicker-year {
+	        padding-left: 8px;
+	        color: #a8a8a8;
+	      }
+	      .ui-datepicker-month:before {
+	        display: block;
+	        position: absolute;
+	        top: 5px;
+	        right: 0;
+	        width: 5px;
+	        height: 5px;
+	        content: '';
+	        background: #a5cd4e;
+	        background: -moz-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
+	        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a5cd4e), color-stop(100%,#6b8f1a));
+	        background: -webkit-linear-gradient(top, #a5cd4e 0%,#6b8f1a 100%);
+	        background: -o-linear-gradient(top, #a5cd4e 0%,#6b8f1a 100%);
+	        background: -ms-linear-gradient(top, #a5cd4e 0%,#6b8f1a 100%);
+	        background: linear-gradient(top, #a5cd4e 0%,#6b8f1a 100%);
+	        -webkit-border-radius: 5px;
+	        -moz-border-radius: 5px;
+	        border-radius: 5px;
+	      }
+	      .ui-datepicker-prev,
+	      .ui-datepicker-next {
+	        position: absolute;
+	        top: -2px;
+	        padding: 5px;
+	        cursor: pointer;
+	      }
+	      .ui-datepicker-prev {
+	        left: 0;
+	        padding-left: 0;
+	      }
+	      .ui-datepicker-next {
+	        right: 0;
+	        padding-right: 0;
+	      }
+	      .ui-datepicker-prev {float:left;, background-position: center -30px;}
+	      .ui-datepicker-next{
+	        float:right;
+	        background-position: center 0px;
+	      }
+	      .ui-datepicker-prev span { background-position: 0px 0px; }
+	      .ui-datepicker-next span { background-position: -5px 0px; }
+	      .ui-datepicker-prev-hover span { background-position: 0px -10px; }
+	      .ui-datepicker-next-hover span { background-position: -5px -10px; }
+	      .ui-datepicker-calendar th {
+	        padding-top: 15px;
+	        padding-bottom: 10px;
+	        text-align: center;
+	        font-weight: normal;
+	        color: #a8a8a8;
+	      }
+	      .ui-datepicker-calendar td {
+	        padding: 0 12px;
+	        text-align: center;
+	        line-height: 26px;
+	      }
+	      .ui-datepicker-calendar .ui-state-default {
+	        display: inline-block;
+	        width: 26px;
+	        outline: none;
+	        text-decoration: none;
+	        color: black;
+	        border: 1px solid transparent;
+	      }
+	      .ui-datepicker-calendar .ui-state-active {
+	        color: #6a9113;
+	        border: 1px solid #6a9113;
+	      }
+	      .ui-datepicker-calendar .ui-state-hover {
+	        background: #f7f7f7;
+	      }
+	      .ui-datepicker-other-month .ui-state-default { color: black; }
+	      .event a {
+	        background-color: #42B373 !important;
+	        background-image :none !important;
+	        color: #ffffff !important;
+	      }
+	      .ui-state-highlight{background:red;}
+	  </style>
+</head>
+<style type="text/css">
+	table a:link {
+		color: #666;
+		font-weight: bold;
+		text-decoration:none;
+	}
+	table a:visited {
+		color: #999999;
+		font-weight:bold;
+		text-decoration:none;
+	}
+	table a:active,
+	table a:hover {
+		color: #bd5a35;
+		text-decoration:underline;
+	}
+	table {
+		font-family:Arial, Helvetica, sans-serif;
+		color:#666;
+		font-size:12px;
+		text-shadow: 1px 1px 0px #fff;
+		background:#eaebec;
+		margin:20px;
+		border:#ccc 1px solid;
+
+		-moz-border-radius:3px;
+		-webkit-border-radius:3px;
+		border-radius:3px;
+
+		-moz-box-shadow: 0 1px 2px #d1d1d1;
+		-webkit-box-shadow: 0 1px 2px #d1d1d1;
+		box-shadow: 0 1px 2px #d1d1d1;
+	}
+	table th {
+		padding:21px 25px 22px 25px;
+		border-top:1px solid #fafafa;
+		border-bottom:1px solid #e0e0e0;
+
+		background: #ededed;
+		background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+		background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+	}
+	table th:first-child {
+		text-align: left;
+		padding-left:20px;
+	}
+	table tr:first-child th:first-child {
+		-moz-border-radius-topleft:3px;
+		-webkit-border-top-left-radius:3px;
+		border-top-left-radius:3px;
+	}
+	table tr:first-child th:last-child {
+		-moz-border-radius-topright:3px;
+		-webkit-border-top-right-radius:3px;
+		border-top-right-radius:3px;
+	}
+	table tr {
+		text-align: center;
+		padding-left:20px;
+	}
+	table td:first-child {
+		text-align: left;
+		padding-left:20px;
+		border-left: 0;
+	}
+	table td {
+		padding:18px;
+		border-top: 1px solid #ffffff;
+		border-bottom:1px solid #e0e0e0;
+		border-left: 1px solid #e0e0e0;
+
+		background: #fafafa;
+		background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+		background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+	}
+	table tr.even td {
+		background: #f6f6f6;
+		background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+		background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+	}
+	table tr:last-child td {
+		border-bottom:0;
+	}
+	table tr:last-child td:first-child {
+		-moz-border-radius-bottomleft:3px;
+		-webkit-border-bottom-left-radius:3px;
+		border-bottom-left-radius:3px;
+	}
+	table tr:last-child td:last-child {
+		-moz-border-radius-bottomright:3px;
+		-webkit-border-bottom-right-radius:3px;
+		border-bottom-right-radius:3px;
+	}
+	table tr:hover td {
+		background: #f2f2f2;
+		background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+		background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+	}
+	.button {
+	  display: inline-block;
+	  padding: 15px 25px;
+	  font-size: 24px;
+	  cursor: pointer;
+	  text-align: center;
+	  text-decoration: none;
+	  outline: none;
+	  color: #fff;
+	  background-color: #4CAF50;
+	  border: none;
+	  border-radius: 15px;
+	  box-shadow: 0 9px #999;
+	}
+
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);
+	}
+</style>
+<body>
+
+<div class="row">
+
+
+
+	<div  class="col-md-10">
+
+	<!--      <div class = "result-box">-->
+		<p>Choose A Date<div id="datepicker"></div></p>
+
+	</div>
+
+
+</div>
+
+</body>
+</html>
