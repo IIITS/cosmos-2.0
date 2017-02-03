@@ -9,7 +9,7 @@ from django.db.models import When
 @csrf_protect
 def login(request):
 	c = {}
-	return render(request,'login.html',c)
+	return render(request,'polls/login.html',c)
 
 def auth_view(request):
 	username = request.POST.get('username','')
