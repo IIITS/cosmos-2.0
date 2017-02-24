@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 @csrf_protect
 def login(request):
 	c = {}
-	return render(request,'login.html',c)
+	return render(request,'polls/login.html',c)
 
 def auth_view(request):
 	username = request.POST.get('username','')

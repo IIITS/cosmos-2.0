@@ -191,7 +191,7 @@ class VerifyOtpView(FormView):
                 email = self.kwargs['user_email']
                 otp = form.cleaned_data['otp']
                 pr_otp = PasswordResetOTPLogs.objects.get(otp=otp,user_email=email)
-                return HttpResponseRedirect('/acounts/new-password/?user_email=%s&otp=%s'%(email,otp))    
+                return HttpResponseRedirect('/accounts/new-password/?user_email=%s&otp=%s'%(email,otp))    
 
             except ObjectDoesNotExist:   
                 return render(self.request, self.template_name, {'form': form, 'form_error':'OTP entered is incorrect. Please check your email and try again' })

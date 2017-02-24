@@ -1,0 +1,134 @@
+
+{% load staticfiles %}
+
+<html>
+<head>
+<title>{% block head_title %}Andramida{% endblock head_title %}</title>
+
+<link rel='stylesheet' href='{% static "posts/css/bootstrap.min.css" %}' />
+ <link href='{% static "posts/css/simple-sidebar.css" %}' rel="stylesheet">
+<link rel='stylesheet' href='{% static "posts/css/base.css" %}' />
+<style>
+{% block style %}{% endblock style %}
+</style>
+
+{% block head_extra %} {% endblock head_extra %}
+</head>
+<body>
+ 
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand" >
+                    <a href='{% url "posts:list" %}'>
+                        Andramida
+                    </a>
+                </li>
+                
+                {% block side_bar_list %}
+                {% endblock %}
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="#menu-toggle" class="btn btn-info btn-lg" id="menu-toggle"> 
+                        <span class="glyphicon glyphicon-transfer"></span> Menu
+                        </a>
+
+                        {% block base_body %}
+
+                        {% endblock %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+    <script src='{% static "js/jquery.js" %}'></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src='{% static "js/bootstrap.min.js" %}'></script>
+
+    <script src='{% static "js/marked.min.js" %}'></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".content-markdown").each(function(){
+            var content = $(this).text()
+            var markedContent = marked(content)
+            $(this).html(markedContent)
+    })
+    $(".post-detail-item img").each(function(){
+            $(this).addClass("img-responsive");
+    })
+
+    
+
+    var contentInput = $("#id_content");
+
+    function setContent(value){
+        var markedContent = marked(value)
+        $("#preview-content").html(markedContent)
+        $("#preview-content img").each(function(){
+            $(this).addClass("img-responsive")
+        })
+    }
+    setContent(contentInput.val())
+
+    contentInput.keyup(function(){
+        var newContent = $(this).val()
+        setContent(newContent)
+    })
+
+    var titleInput = $("#id_title");
+    
+
+
+    function setTitle(value) {
+        $("#preview-title").text(value)
+    }
+    setTitle(titleInput.val())
+
+    titleInput.keyup(function(){
+        var newContent = $(this).val()
+        setTitle(newContent)
+    })
+
+    $(".comment-reply-btn").click(function(event){
+        event.preventDefault();
+        $(this).parent().next(".comment-reply").fadeToggle();
+    })
+
+
+    // preview-title
+    // preview-content
+
+})
+
+</script>
+    
+   
+
+</body>
+
+</html>
