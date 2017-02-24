@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^/static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 
     url(r'^issues-and-suggestions/', include('gp.urls')),
-
+    url(r'^polls/', include('polls.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 	url(r'^feasta/', include('feasta.urls'))
