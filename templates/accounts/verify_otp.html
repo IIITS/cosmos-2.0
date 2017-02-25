@@ -47,9 +47,9 @@
   			<div class="mdl-card__supporting-text">
   				<form action="" method="post">
           			{%csrf_token%}
-					{% if form.non_field_errors %}
-						{{ form_error }}
-					{% endif %}
+                            {{ form_error }}
+
+
   					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     					{{form.otp}}
     					<label class="mdl-textfield__label" for="username">Enter the OTP sent to your email - {{email}}</label>

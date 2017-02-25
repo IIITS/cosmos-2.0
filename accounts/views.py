@@ -51,20 +51,23 @@ class LoginView(FormView):
 
 class NewPasswordView(FormView):
     
-    template_name = 'accounts/login.html'
+    template_name = 'accounts/password_change_form.html'
     form_class = NewPasswordForm
     success_url = settings.LOGIN_REDIRECT_URL
     
     def form_valid(self,form):
         
-        pass1 = form.cleaned_data['password']
-        pass2 = form.cleaned_data['password_again']
-        
-        if pass1 == pass2:
-            form.save()
-            return HttpResponseRedirect('/')
-        return super(NewPasswordView,self).form_valid(form)
+        pass1 = form.cleaned_data['new_password1']
+        pass2 = form.cleaned_data['new_password2']
+        email = self.kwargs['user_email']
 
+        if pass1 == pass2:
+            #form.save()
+            u = User.objects.get(username__exact=email)
+            u.set_password(pass1)
+            u.save()
+            return HttpResponseRedirect('/accounts/login')
+        return super(NewPasswordView,self).form_valid(form)
     def form_invalid(self,form):
         
         return render(self.request, self.template_name, {'form': form, 'form_error':'Sorry, There was an error. Choose a password of length 8 or more' } )
@@ -76,19 +79,20 @@ class NewPasswordView(FormView):
                'form':NewPasswordForm(self.request.POST)  
         }
         return context
-
     def dispatch(self, *args, **kwargs):
         
-        email = self.kwargs['user_email']
-        otp = self.kwargs['otp']
-
         try:
+            email = self.kwargs['user_email']
+            otp = self.kwargs['otp']
             pr_otp = PasswordResetOTPLogs.objects.get(otp=otp, user_email=email, expired=False)
             return super(NewPasswordView,self).dispatch(*args,**kwargs)
 
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/accounts/send-otp/lost-password/')    
 
+
+
+    
 
 @sensitive_post_parameters()
 @csrf_protect
@@ -162,7 +166,7 @@ class SendOtpView(FormView):
                 msg = EmailMessage(subject, message, to=to, from_email=from_email, bcc=bcc)
                 msg.content_subtype = 'html'
                 msg.send()
-                return HttpResponseRedirect('/accounts/verify-otp/lost-password/?user_email=%s' %(user.email))   
+                return HttpResponseRedirect('/accounts/verify-otp/lost-password/%s' %(user.email))   
 
             except ObjectDoesNotExist:   
                 return render(self.request, self.template_name, {'form': form, 'form_error':'The email you entered is not associated with any account on cosmos!'})
@@ -181,7 +185,7 @@ class VerifyOtpView(FormView):
                 email = self.kwargs['user_email']
                 otp = form.cleaned_data['otp']
                 pr_otp = PasswordResetOTPLogs.objects.get(otp=otp,user_email=email)
-                return HttpResponseRedirect('/accounts/new-password/?user_email=%s&otp=%s'%(email,otp))    
+                return HttpResponseRedirect('/accounts/new-password/%s/%s'%(email,otp))    
 
             except ObjectDoesNotExist:   
                 return render(self.request, self.template_name, {'form': form, 'form_error':'OTP entered is incorrect. Please check your email and try again' })
