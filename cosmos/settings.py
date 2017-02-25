@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'pagedown',
     'comments',
     'posts',
+    'polls'
 ]
 
 MIDDLEWARE_CLASSES = [
