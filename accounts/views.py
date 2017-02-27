@@ -23,6 +23,10 @@ from django.template.response import TemplateResponse
 from django.core.mail import send_mail
 import json
 from django.contrib.auth.models import User
+import ldap
+from django_auth_ldap import backend 
+
+  
 
 class LoginView(FormView):
 	template_name = 'accounts/login.html'
@@ -32,13 +36,19 @@ class LoginView(FormView):
 		username = form.cleaned_data['username']
 	    	password = form.cleaned_data['password']
     		user = authenticate(username=username, password=password)
-		
+	        ldap_backend = backend.LDAPBackend()
+        	ldap_user = backend.LDAPBackend.authenticate(ldap_backend, username=username, password=password)
+
     		if user is not None:
 			
         		if user.is_active:
 				
             			login(self.request, user)
 			return HttpResponseRedirect('/')
+		if ldap_user is not None: 
+			login(self.request, user)
+			return HttpResponseRedirect('/')
+        	print "here"    
 		return super(LoginView,self).form_valid(form)
 	def form_invalid(self,form):
 		return render(self.request, self.template_name, {'form': form, 'form_error':'Sorry, username or password incorrect!' } )
@@ -181,7 +191,7 @@ class VerifyOtpView(FormView):
                 email = self.kwargs['user_email']
                 otp = form.cleaned_data['otp']
                 pr_otp = PasswordResetOTPLogs.objects.get(otp=otp,user_email=email)
-                return HttpResponseRedirect('/acounts/new-password/?user_email=%s&otp=%s'%(email,otp))    
+                return HttpResponseRedirect('/accounts/new-password/?user_email=%s&otp=%s'%(email,otp))    
 
             except ObjectDoesNotExist:   
                 return render(self.request, self.template_name, {'form': form, 'form_error':'OTP entered is incorrect. Please check your email and try again' })

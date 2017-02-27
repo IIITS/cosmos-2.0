@@ -34,7 +34,6 @@ class Complaint(models.Model):
 	posted_on = models.DateTimeField(db_index=True,auto_now = True)
 	def __str__(self):
 			return str(self.title)
-
 	
 
 class Solution(models.Model):
@@ -47,8 +46,8 @@ class Suggestion(models.Model):
 	complaint = models.ForeignKey(Complaint,on_delete = models.CASCADE)
 	author = models.ForeignKey(User, on_delete = models.CASCADE)
 	suggestion = models.TextField()	
-	upvotes = models.PositiveIntegerField()
-	downvotes = models.PositiveIntegerField()
+	#upvotes = models.PositiveIntegerField()
+	#downvotes = models.PositiveIntegerField()
 
 
 class Upvote(models.Model):
@@ -72,7 +71,8 @@ class ClosedIssues(models.Model):
 	issue = issue = models.ForeignKey(Complaint)
 	closed_by = models.ForeignKey(User)				
 	def __str__(self):
-		return self.issue 
+		return self.issue
+
 class AssignedIssues(models.Model):
 	assigned_date = models.DateTimeField(db_index=True)
 	issue = models.ForeignKey(Complaint)

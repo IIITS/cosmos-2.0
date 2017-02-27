@@ -1,4 +1,6 @@
-
+.mdl-layout__header-row .mdl-navigation__link{
+padding:0 10px;
+}
 body {
   margin: 0;
   background: url('../images/slide02.jpg') repeat;
@@ -101,8 +103,8 @@ a {
 
   .septem-header .mdl-navigation__link {
     color: #024806;
-    font-weight: 700;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 11.5px;
   }
 
   .septem-navigation-container {

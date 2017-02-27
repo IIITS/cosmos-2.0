@@ -14,8 +14,14 @@ urlpatterns = [
     url(r'^btp/', include('btp.urls', namespace='btp')),
     
     url(r'^issues-and-suggestions/', include('gp.urls')),
+<<<<<<< HEAD
 
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+=======
+    url(r'^polls/', include('polls.urls')),
+    url(r'^roombookings/', include('polls.urls')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+>>>>>>> 8c1491d18f4e73764cf530977a890450c1ae945f
 
 	url(r'^feasta/', include('feasta.urls'))
 ]

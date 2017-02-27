@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% load groupCheck %}
+
+
+{% block side_bar_list%}
+
+        {% if not request.user.is_authenticated %}
+        <li ><a href='{% url "login" %}'>Login</a></li>
+         <li ><a href='{% url "register" %}'>Register</a></li>
+        {% else %}
+        <li ><a href='{% url "posts:create" %}'>Create</a></li>
+        <li ><a href='{% url "logout" %}'>Logout</a></li>
+        {% endif %}
+        {% block sidebar %}{% endblock sidebar %}
+
+{%endblock%}
+
+{% block base_body %}
+{% include "messages_display.html" %}
+<div class='container-fluid'> 
+    
+{% block content %}{% endblock content %}
+</div>
+{% endblock %}
+
+</html>
+
+
+
+

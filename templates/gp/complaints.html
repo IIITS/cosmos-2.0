@@ -8,6 +8,13 @@
 	{% block maincontent %}	
 	<div style="margin-left:20%; margin-top:2%;"> 
 	<span class="mdl-layout-title">Trending Issues</span>
+
+	<div class="alert alert-success" id="success-alert" style="position:fixed; margin-left:700px;">
+    	<button type="button" class="close" data-dismiss="alert">x</button>
+    		<strong>Success! </strong>
+    		Suggestion has been submitted successfully.
+	</div>
+
 	{% for x in posts%}
 	
 	<div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:550px;margin-top:10px;">
@@ -24,10 +31,10 @@
 		</div>
 		<div class="mdl-card__actions mdl-card--border">
 			{% ifequal x.upvoted False %}
-				<a id="upvote-{{x.issue.id}}"  class="thumbs-up not-upvoted" onclick="upvote({{x.issue.id}})">
+				<a id="upvote-{{x.issue.id}}"  class="thumbs-up not-upvoted" onclick="upvote({{x.issue.id}}, 'not-upvoted')">
 			{%endifequal %}
 			{% ifequal x.upvoted True %}
-				<a id="upvote-{{x.issue.id}}"  class="thumbs-up upvoted" onclick="upvote({{x.issue.id}})">
+				<a id="upvote-{{x.issue.id}}"  class="thumbs-up upvoted" onclick="upvote({{x.issue.id}}, 'upvoted')">
 			{%endifequal %}	
 				{% ifequal x.upvoted False %}
     				<i id="upvote-symbol-o-{{x.issue.id}}" class="fa fa-thumbs-o-up"></i>
@@ -54,7 +61,7 @@
 	<label class="mdl-textfield__label">Enter the email Address</label>
 </div>
  <div class="mdl-textfield mdl-js-textfield">
-	{{form.bod}}
+	{{form.body}}
 <label class="mdl-textfield__label">Write something</label>
 </div>		
       </p>
@@ -71,23 +78,64 @@
 {% endif %}
   </div>	
 	</div>
-<span><a id="suggestions-click-{{x.issue.id}}" onclick="loadSuggestions({{x.issue.id}})" style="text-decoration:underline;"><br>View Suggestions<br></a></span>		
-<form action="" method="post">{%csrf_token%}
-<div class="mdl-textfield mdl-js-textfield">
-  	{{form.text}}
-  	<label class="mdl-textfield__label">Post a suggestion</label>
 
-</div>
-<br><button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" onclick="submitSuggestion({{x.issue.id}})">Post</button>
-</form><br>
+<br>
+<span>
+	<a id="suggestions-click-{{x.issue.id}}" onclick="loadSuggestions({{x.issue.id}})" >
+		<button type="button" class="btn btn-success">
+			View suggestions
+		</button>
+	</a>
+</span>		
+
+<form action="">
+	<div class="mdl-textfield mdl-js-textfield is-upgraded" data-upgraded=",MaterialTextfield">
+		<textarea class="mdl-textfield__input" cols="40" id="id_text_{{x.issue.id}}" name="text" placeholder="Post a suggestion" rows="3"></textarea>
+	</div>
+	<br>
+	<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" onclick="event.preventDefault(); submitSuggestion({{x.issue.id}})" data-upgraded=",MaterialButton,MaterialRipple">
+		Post
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</button>
+</form>
+
+<br>
+
 <div id="suggestions-display-{{x.issue.id}}">
 	
 </div>
 {% endfor %}
 </div>
+
+<!-- Suggestion box -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Suggestion List-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Suggestions</h4>
+      </div>
+      <div class="modal-body">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 <script>
+	$("#success-alert").hide();
+
 	function AssignModal(CID){
-	var dialog = document.querySelector('#dialog-'+CID);
+		var dialog = document.querySelector('#dialog-'+CID);
 	
 	    var showModalButton = document.querySelector('#showModal-'+CID);
 	    if (! dialog.showModal) {
@@ -100,10 +148,105 @@
 	      dialog.close();
 	    });
 	}
+
+	function upvote(id, status) {
+		console.log("Upvoting");
+		$.ajax({
+	    	url: 'upvote/complaint/',
+	    	type: 'GET',
+	    	data: {
+	        	ID: id,
+	        	status: "temp " + status,
+	        	csrfmiddlewaretoken: '{{csrf_token}}',
+	      	},
+	    })
+	    .done(function(result) {
+	    	console.log(result);
+	    	$('#upvote-container-' + id).html(result.split(',')[1])
+	    })
+	    .fail(function(result) {
+	    	//willstop = 1
+	    	console.log("error");
+	    })
+	    .always(function(result) {
+	    	//console.log(result);
+	    });				
+	}
+
+	function fill_modal(result) {
+		result = JSON.parse(result);
+		//result = result.slice(1);
+		var body_text = ""
+		for (var i = 0; i < result.length; i++) {
+			console.log("Author ID: " + result[i].fields.author + " -> " + result[i].fields.suggestion);
+			body_text += "<p> Author ID: " + result[i].fields.author + " -> " + result[i].fields.suggestion + "</p>";
+		}
+		$('.modal-body').html(body_text);
+		console.log(body_text);
+	}
+
+	function loadSuggestions(id) {
+		console.log("loading suggestions")
+	    $.ajax({
+	    	url: 'get/suggestion/',
+	    	type: 'GET',
+	    	data: {
+	        	cid: id,
+				begin: 0,
+				end: 5,
+	        	csrfmiddlewaretoken: '{{csrf_token}}',
+	      	},
+	    })
+	    .done(function(result) {
+		console.log(result);
+	    	fill_modal(result);
+	    	$('#myModal').modal('show');
+	    })
+	    .fail(function(result) {
+	    	//willstop = 1
+	    	console.log("error");
+	    })
+	    .always(function(result) {
+	    	//console.log(result);
+	    });
+	}
+
+	function submitSuggestion(id) {
+		console.log("submitting suggestions");
+		suggestion = $('#id_text_' + id).val();
+		//id = $('#post_id').val();
+		console.log(suggestion)
+	    $.ajax({
+	    	url: 'submit/suggestion/',
+	    	type: 'GET',
+	    	data: {
+	        	ID: id,
+	        	suggestion: suggestion,
+	        	csrfmiddlewaretoken: '{{csrf_token}}',
+	      	},
+	    })
+	    .done(function(result) {
+	    	console.log("Submitted successfully");
+
+      		$("#success-alert").alert();
+		    $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+				$("#success-alert").slideUp(500);
+      		});
+	    	$('#id_text_' + id).val('');
+
+	    })
+	    .fail(function(result) {
+	    	//willstop = 1
+	    	console.log("error");
+	    })
+	    .always(function(result) {
+	    	//console.log(result);
+	    });
+	   	return true
+	}
+
 	function disableAssignAndShowSolved(CID){
-	  assignButtonId = "#showModal-"+CID;
-	  closeButton = "#issue-close-"+CID;
-	  $(assignButtonId).html('CLOSE');
+
 		
 	}  
   
