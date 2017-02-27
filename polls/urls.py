@@ -13,5 +13,5 @@ urlpatterns = [
 	url(r'^(?P<room_id>[0-9]+)/$', views.details, name = 'detail'),
 	url(r'^(?P<room_id>[0-9]+)/(?P<room_no>[0-9]+)/$',views.book, name = 'book'),
 	url(r'^(?P<room_id>[0-9]+)/(?P<room_no>[0-9]+)/(?P<date_of_booking>(\d{4})[/.-](\d{2})[/.-](\d{2}))/$',views.confirm, name = 'confirm'),
-	url(r'^(?P<room_id>[0-9]+)/(?P<room_no>[0-9]+)/(?P<date_of_booking>(\d{4})[/.-](\d{2})[/.-](\d{2}))/(?P<time_id>(\d\d+)[:](\d{2}))/$',views.booking, name = 'booking'),
+	url(r'^(?P<room_id>[0-9]+)/(?P<room_no>[0-9]+)/(?P<date_of_booking>(\d{4})[/.-](\d{2})[/.-](\d{2}))/(?P<time_id>(\d\d?)[:](\d{2}))/$',views.booking, name = 'booking'),
 ]
