@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from btp import views , git_views
 from django.conf import settings
 from django.contrib.auth.views import password_reset, logout
@@ -21,10 +21,3 @@ urlpatterns = [
 	url(r'^move-to-archives/(?P<id>[0-9]+)/$', login_required(views.moveProjectToArchives)),
 	url(r'^archive-restore/(?P<id>[0-9]+)/$', login_required(views.restoreFromArchives))
 ]
-if settings.SERVE_MEDIA:
-    urlpatterns += (
-        url(r'media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True }),
-        url(r'static/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.STATIC_ROOT, }),
-)

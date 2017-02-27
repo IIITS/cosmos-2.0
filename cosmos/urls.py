@@ -5,17 +5,17 @@ from django.contrib.auth.decorators import login_required
 from btp import views as btp_views
 from accounts import urls as accounts_urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.static import serve as static_serve
 import settings
 urlpatterns = [
 	url(r'^$', login_required(btp_views.IndexView.as_view()), name='homepage'),
 	url(r'^accounts/', include('accounts.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^btp/', include('btp.urls', namespace='btp')),
-    url(r'^/static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-
+    
     url(r'^issues-and-suggestions/', include('gp.urls')),
 
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 	url(r'^feasta/', include('feasta.urls'))
 ]
@@ -26,4 +26,12 @@ if settings.DEBUG ==True:
 	 urlpatterns += staticfiles_urlpatterns()
 
 	 print staticfiles_urlpatterns()
+
+if settings.SERVE_MEDIA:
+    urlpatterns += (
+        url(r'media/(?P<path>.*)$', static_serve,
+            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True }),
+        url(r'static/(?P<path>.*)$', static_serve,
+            {'document_root': settings.STATIC_ROOT, }),
+)
 

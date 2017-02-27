@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from accounts import views 
 from btp.views import IndexView
 from django.conf import settings
@@ -15,10 +15,3 @@ urlpatterns = [
 	url(r'^send-otp/lost-password/$', views.SendOtpView.as_view()),
 	url(r'^verify-otp/lost-password/(?P<user_email>[a-zA-Z0-9.@]*)$', views.VerifyOtpView.as_view())
 ]
-if settings.SERVE_MEDIA:
-    urlpatterns += (
-        url(r'media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True }),
-        url(r'static/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.STATIC_ROOT, }),
-)
