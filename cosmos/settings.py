@@ -1,6 +1,6 @@
 import os
 import ldap
-from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+from django_auth_ldap.config import LDAPSearch, NestedActiveDirectoryGroupType
 import django
 from pswd import LDAP_PASS, LDAP_USER
 
@@ -106,8 +106,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_LDAP_SERVER_URI = "ldap.iiits.in"
-
+# Binding and connection options
+AUTH_LDAP_SERVER_URI = "ldap://10.0.1.3:389"
 AUTH_LDAP_BIND_DN = LDAP_USER
 AUTH_LDAP_BIND_PASSWORD = LDAP_PASS
 AUTH_LDAP_CONNECTION_OPTIONS = {
@@ -115,19 +115,18 @@ AUTH_LDAP_CONNECTION_OPTIONS = {
     ldap.OPT_REFERRALS: 0,
 }
 
-AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=people,dc=iiits,dc=in",
+# User and group search objects and types
+AUTH_LDAP_USER_SEARCH = LDAPSearch("OU=people,DC=iiits,DC=in",
     ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=django,ou=groups,dc=iiits,dc=in",
-    ldap.SCOPE_SUBTREE, "(objectClass=groupOfNames)"
-)
-AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr="cn")
-
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("OU=people,DC=iiits,DC=in",
+    ldap.SCOPE_SUBTREE, "(objectClass=group)")
+AUTH_LDAP_GROUP_TYPE = NestedActiveDirectoryGroupType()
 
 # Cache settings
 AUTH_LDAP_CACHE_GROUPS = True
 AUTH_LDAP_GROUP_CACHE_TIMEOUT = 300
 
-# Populate the Django user from the LDAP directory.
+# What to do once the user is authenticated
 AUTH_LDAP_USER_ATTR_MAP = {
     "first_name": "givenName",
     "last_name": "sn",
@@ -136,12 +135,12 @@ AUTH_LDAP_USER_ATTR_MAP = {
 
 AUTH_LDAP_FIND_GROUP_PERMS = True
 
-# Keep ModelBackend around for per-user permissions and maybe a local
-# superuser.
+# The backends needed to make this work.
 AUTHENTICATION_BACKENDS = (
     'django_auth_ldap.backend.LDAPBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
+    'django.contrib.auth.backends.ModelBackend')
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
