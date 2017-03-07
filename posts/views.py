@@ -132,7 +132,6 @@ def post_list(request):
 
 
 def post_update(request, slug=None):
-	group =  Group.objects.get(name="add") 
 	if not request.user.is_authenticated  and not request.user.is_superuser:
 		raise Http404
 
@@ -156,7 +155,6 @@ def post_update(request, slug=None):
 
 
 def post_delete(request, slug=None):
-	group =  Group.objects.get(name="add") 
 	if not request.user.is_authenticated  and not request.user.is_superuser :
 		raise Http404
 	instance = get_object_or_404(Post, slug=slug)
