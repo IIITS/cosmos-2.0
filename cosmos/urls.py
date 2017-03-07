@@ -18,7 +18,9 @@ urlpatterns = [
     url(r'^roombookings/', include('polls.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-	url(r'^feasta/', include('feasta.urls'))
+	url(r'^feasta/', include('feasta.urls')),
+    url(r'^posts/', include('posts.urls')),
+    url(r'^comments/', include('comments.urls'))
 ]
 handler404 = 'btp.views.page_not_found'
 
