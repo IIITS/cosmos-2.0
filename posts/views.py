@@ -170,7 +170,7 @@ def post_delete(request, slug=None):
 
 def exam_schedule(request):
     with open('/var/www/cosmosenv/cosmos/exam_schedule.pdf', 'r') as pdf:
-        response = HttpResponse(pdf.read(), mimetype='application/pdf')
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline;filename=exam_schedule.pdf'
         return response
     pdf.closed
