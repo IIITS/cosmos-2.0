@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^comments/', include("comments.urls", namespace='comments')),
     url(r'^posts/', include("posts.urls", namespace='posts')),
 
-	url(r'^exam_schedule',posts_views.getSchedule.as_view())#for showing exam_schedule
+	url(r'^exam_schedule',posts_views.exam_schedule.as_view())#for showing exam_schedule
 
 ]
 handler404 = 'btp.views.page_not_found'
