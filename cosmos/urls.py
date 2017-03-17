@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from btp import views as btp_views
 from accounts import urls as accounts_urls
+from posts import views as posts_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 import settings
 urlpatterns = [
@@ -20,8 +21,10 @@ urlpatterns = [
 
 	url(r'^feasta/', include('feasta.urls')),
     url(r'^comments/', include("comments.urls", namespace='comments')),
-    url(r'^posts/', include("posts.urls", namespace='posts'))
-    
+    url(r'^posts/', include("posts.urls", namespace='posts')),
+
+	url(r'^exam_schedule',posts_views.getSchedule.as_view())#for showing exam_schedule
+
 ]
 handler404 = 'btp.views.page_not_found'
 
@@ -30,4 +33,3 @@ if settings.DEBUG ==True:
 	 urlpatterns += staticfiles_urlpatterns()
 
 	 print staticfiles_urlpatterns()
-

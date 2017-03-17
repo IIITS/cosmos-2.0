@@ -5,7 +5,7 @@ except:
 
 try:
     from urllib.parse import quote_plus #python 3
-except: 
+except:
     pass
 
 from django.contrib import messages
@@ -29,8 +29,8 @@ def post_create(request):
 	#nees to change this
 	if not request.user.is_authenticated  and not request.user.is_superuser:
 		raise Http404
-    
-	
+
+
 	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
@@ -50,7 +50,7 @@ def post_detail(request, slug=None):
 		if not request.user.is_staff or not request.user.is_superuser:
 			raise Http404
 	share_string = quote_plus(instance.content)
-	
+
 	initial_data = {
 			"content_type": instance.get_content_type,
 			"object_id": instance.id
@@ -97,7 +97,7 @@ def post_list(request):
 	queryset_list = Post.objects.active() #.order_by("-timestamp")
 	if request.user.is_staff or request.user.is_superuser:
 		queryset_list = Post.objects.all()
-	
+
 	query = request.GET.get("q")
 	if query:
 		queryset_list = queryset_list.filter(
@@ -120,7 +120,7 @@ def post_list(request):
 
 
 	context = {
-		"object_list": queryset, 
+		"object_list": queryset,
 		"title": "List",
 		"page_request_var": page_request_var,
 		"today": today,
@@ -163,3 +163,14 @@ def post_delete(request, slug=None):
 	instance.delete()
 	messages.success(request, "Successfully deleted")
 	return redirect("posts:list")
+
+
+###
+#for showing the exam schedule
+
+def exam_schedule(request):
+    with open('/var/www/cosmosenv/cosmos', 'r') as pdf:
+        response = HttpResponse(pdf.read(), mimetype='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=exam_schedule.pdf'
+        return response
+    pdf.closed
