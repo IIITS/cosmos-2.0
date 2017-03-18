@@ -36,12 +36,12 @@ INSTALLED_APPS = [
     'pagedown',
     'comments',
     'posts',
+    'polls',
     'ldap_sync',
     'btp',
     'accounts',
     'gp',
-    'feasta',
-    'polls',
+    'feasta'
 ]
 
 MIDDLEWARE_CLASSES = [
