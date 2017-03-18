@@ -3,8 +3,8 @@ from django.contrib.auth.forms import *
 from btp.models import *
 
 class LoginForm(AuthenticationForm):
-	username = CharField(widget=TextInput(attrs={'class':'mdl-textfield__input', 'id':'username'}))
-	password = CharField(widget=PasswordInput(attrs={'class':'mdl-textfield__input', 'id':'password'}))
+	username = CharField(widget=TextInput(attrs={'class':'mdl-textfield__input', 'id':'username', 'required':'true'}))
+	password = CharField(widget=PasswordInput(attrs={'class':'mdl-textfield__input', 'id':'password', 'required':'true'}))
 	def clean(self):
         	username = self.cleaned_data.get('username')
         	password = self.cleaned_data.get('password')

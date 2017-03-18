@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response, render
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_protect
 from django.db.models import When
-
+from django.core.mail import send_mail
 @csrf_protect
 def login(request):
 	c = {}
@@ -93,9 +93,9 @@ def booking(request,room_no,date_of_booking,time_id,room_id):
 		template = loader.get_template('polls/booking.html')
 		book_entry = books(room_no = room_no, email=email_id, time= time_id, date_of_booking=date_of_booking)
 		book_entry.save()
-		if book_entry.save() :
-			send_mail('Room Booked','Room booked by'+request.user.first_name, email_id, ['akash.d14@iiits.in'])
-			context = {
-				'email_id':email_id,
-			}
-			return HttpResponseRedirect('/polls/'+room_id+'/'+room_no+'/'+date_of_booking)
+		send_mail('Room Booked','Room booked by '+email_id,'roombooking@iiits.in',['academics@iiits.in'],fail_silently=False,auth_user='roombooking.iiits@gmail.com',auth_password='room@iiits')
+		send_mail('Room Booked','Room booked successfully on '+date_of_booking,'roombooking@iiits.in',[email_id],fail_silently=False,auth_user='roombooking.iiits@gmail.com',auth_password='room@iiits')
+		context = {
+			'email_id':email_id,
+		}
+		return HttpResponseRedirect('/polls/'+room_id+'/'+room_no+'/'+date_of_booking)
