@@ -138,7 +138,7 @@ AUTH_LDAP_FIND_GROUP_PERMS = True
 # The backends needed to make this work.
 AUTHENTICATION_BACKENDS = (
     'django_auth_ldap.backend.LDAPBackend',
-    #'django.contrib.auth.backends.ModelBackend')
+    'django.contrib.auth.backends.ModelBackend')
 
 
 
