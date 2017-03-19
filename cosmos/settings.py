@@ -4,7 +4,7 @@ from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
 import django
 from django_auth_ldap.config import LDAPSearch, NestedActiveDirectoryGroupType
 import django
-from pswd import LDAP_PASS, LDAP_USER
+#from pswd import LDAP_PASS, LDAP_USER
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -110,8 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Binding and connection options
 AUTH_LDAP_SERVER_URI = "ldap://10.0.1.3:389"
-AUTH_LDAP_BIND_DN = LDAP_USER
-AUTH_LDAP_BIND_PASSWORD = LDAP_PASS
+#AUTH_LDAP_BIND_DN = LDAP_USER
+#AUTH_LDAP_BIND_PASSWORD = LDAP_PASS
 AUTH_LDAP_CONNECTION_OPTIONS = {
     ldap.OPT_DEBUG_LEVEL: 1,
     ldap.OPT_REFERRALS: 0,
