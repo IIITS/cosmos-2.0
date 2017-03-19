@@ -1,16 +1,10 @@
 import os
 import ldap
-<<<<<<< HEAD
 from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
-<<<<<<< HEAD
-=======
 import django
->>>>>>> 8c1491d18f4e73764cf530977a890450c1ae945f
-=======
 from django_auth_ldap.config import LDAPSearch, NestedActiveDirectoryGroupType
 import django
 from pswd import LDAP_PASS, LDAP_USER
->>>>>>> 64efa264553a2c0079ca31ea52191b99bd224ced
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -143,24 +137,18 @@ AUTH_LDAP_USER_ATTR_MAP = {
 
 AUTH_LDAP_FIND_GROUP_PERMS = True
 
-<<<<<<< HEAD
+
 # Cache group memberships for an hour to minimize LDAP traffic
 AUTH_LDAP_CACHE_GROUPS = True
 AUTH_LDAP_GROUP_CACHE_TIMEOUT = 3600
 
-<<<<<<< HEAD
-
-=======
 #LDAP SETTINGS
 
 LDAP_SYNC_URI = "ldap://ldap.iiits.in"
 LDAP_SYNC_BASE = "OU=people,DC=iiits,DC=in"
->>>>>>> 8c1491d18f4e73764cf530977a890450c1ae945f
 # Keep ModelBackend around for per-user permissions and maybe a local
 # superuser.
-=======
 # The backends needed to make this work.
->>>>>>> 64efa264553a2c0079ca31ea52191b99bd224ced
 AUTHENTICATION_BACKENDS = (
     'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend')
@@ -179,24 +167,15 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-<<<<<<< HEAD
-
-=======
-'''
->>>>>>> 8c1491d18f4e73764cf530977a890450c1ae945f
 STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, 'staticfiles'),
     '/var/www/cosmosenv/cosmos/staticfiles/',
 )
-'''
 SERVE_MEDIA = True
 STATIC_URL = '/static/'
-<<<<<<< HEAD
 #STATIC_ROOT = '/var/www/cosmosenv/cosmos/staticfiles/' 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-=======
 STATIC_ROOT = '/var/www/cosmosenv/cosmos/staticfiles/' #os.path.join(BASE_DIR, 'staticfiles')
->>>>>>> 8c1491d18f4e73764cf530977a890450c1ae945f
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL ='/accounts/login/'
 LOGOUT_URL = LOGIN_REDIRECT_URL
