@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from btp import views as btp_views
 from accounts import urls as accounts_urls
+from posts import views as posts_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.static import serve as static_serve
 import settings
@@ -23,7 +24,11 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 >>>>>>> 8c1491d18f4e73764cf530977a890450c1ae945f
 
-	url(r'^feasta/', include('feasta.urls'))
+	url(r'^feasta/', include('feasta.urls')),
+    url(r'^comments/', include("comments.urls", namespace='comments')),
+    url(r'^posts/', include("posts.urls", namespace='posts')),
+
+
 ]
 handler404 = 'btp.views.page_not_found'
 
@@ -32,6 +37,7 @@ if settings.DEBUG ==True:
 	 urlpatterns += staticfiles_urlpatterns()
 
 	 print staticfiles_urlpatterns()
+<<<<<<< HEAD
 
 if settings.SERVE_MEDIA:
     urlpatterns += (
@@ -41,3 +47,5 @@ if settings.SERVE_MEDIA:
             {'document_root': settings.STATIC_ROOT, }),
 )
 
+=======
+>>>>>>> 64efa264553a2c0079ca31ea52191b99bd224ced
