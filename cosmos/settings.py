@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'btp',
     'accounts',
     'gp',
-    'feasta'
+    'feasta',
+    'courses'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -167,15 +168,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 STATICFILES_DIRS = (
     #os.path.join(BASE_DIR, 'staticfiles'),
     '/var/www/cosmosenv/cosmos/staticfiles/',
 )
+
 SERVE_MEDIA = True
 STATIC_URL = '/static/'
-#STATIC_ROOT = '/var/www/cosmosenv/cosmos/staticfiles/' 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = '/var/www/cosmosenv/cosmos/staticfiles/' #os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = '/var/www/cosmosenv/cosmos/staticfiles/' #os.path.join(BASE_DIR, 'staticfiles')
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL ='/accounts/login/'
 LOGOUT_URL = LOGIN_REDIRECT_URL

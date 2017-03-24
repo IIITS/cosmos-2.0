@@ -15,18 +15,15 @@ urlpatterns = [
     url(r'^btp/', include('btp.urls', namespace='btp')),
     
     url(r'^issues-and-suggestions/', include('gp.urls')),
-<<<<<<< HEAD
 
-    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-=======
     url(r'^polls/', include('polls.urls')),
     url(r'^roombookings/', include('polls.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
->>>>>>> 8c1491d18f4e73764cf530977a890450c1ae945f
 
 	url(r'^feasta/', include('feasta.urls')),
     url(r'^comments/', include("comments.urls", namespace='comments')),
     url(r'^posts/', include("posts.urls", namespace='posts')),
+    url(r'courses/', include("courses.urls", namespace="courses"))
 
 
 ]
@@ -37,7 +34,6 @@ if settings.DEBUG ==True:
 	 urlpatterns += staticfiles_urlpatterns()
 
 	 print staticfiles_urlpatterns()
-<<<<<<< HEAD
 
 if settings.SERVE_MEDIA:
     urlpatterns += (
@@ -46,6 +42,3 @@ if settings.SERVE_MEDIA:
         url(r'static/(?P<path>.*)$', static_serve,
             {'document_root': settings.STATIC_ROOT, }),
 )
-
-=======
->>>>>>> 64efa264553a2c0079ca31ea52191b99bd224ced

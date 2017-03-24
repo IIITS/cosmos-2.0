@@ -164,7 +164,7 @@ class BTPEvalSet(models.Model):
 class BTPSetWeek(models.Model):
 	sets = models.ForeignKey(BTPEvalSet)
 	week = models.ForeignKey(BTPWeek)
-	evalday = models.DateField(default=timezone.now())
+	#evalday = models.DateField(default=timezone.now())
 	starttime = models.DateField()
 	endtime = models.DateField()
 	submitdeadline = models.DateTimeField()

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}<title>Courses - {{page_title}}</title></time>{% endblock %}
+{% block sidenav %}
+{% endblock %}
+{% block main %}
+	<center><h4>Course Projects</h4></center>
+	<div class="container-fluid">
+	{% for x in course_project_list %}
+			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 card" style="padding:0px; width: 23.9%; margin-left: 1%;">
+				<div style="height:80px; ">
+					<h6><center><b>{{x.title}}</b></center></h6>
+					
+				</div>
+				<div style="border-top:1px solid #babaae;">
+				<center><a href="{{x.link}}}" target="_blank"><button style="color:#024806;" class="btn mdl-button"><b><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View Demo</b></button></a></center>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
